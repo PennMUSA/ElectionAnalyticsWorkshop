@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>The PA Election Relational Database</title>
+  <meta name="description" content="The PA Election Relational Database">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="The PA Election Relational Database" />
+  <meta property="og:type" content="book" />
+
+
+
+
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="The PA Election Relational Database" />
+
+
+
+
+<meta name="author" content="Jonathan Tannen">
+
+
+<meta name="date" content="2019-03-20">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+
+
+<link rel="next" href="predicting-the-state-house-part-2.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://github.com/PennMUSA/ElectionAnalyticsWorkshop">Election Analytics Penn MUSA Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Predicting the State House, Part 1</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#the-relational-database"><i class="fa fa-check"></i><b>1.1</b> The Relational Database</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="predicting-the-state-house-part-2.html"><a href="predicting-the-state-house-part-2.html"><i class="fa fa-check"></i><b>2</b> Predicting the State House, Part 2</a><ul>
+<li class="chapter" data-level="2.1" data-path="predicting-the-state-house-part-2.html"><a href="predicting-the-state-house-part-2.html#creating-geographies"><i class="fa fa-check"></i><b>2.1</b> Creating Geographies</a></li>
+<li class="chapter" data-level="2.2" data-path="predicting-the-state-house-part-2.html"><a href="predicting-the-state-house-part-2.html#year-to-year-crosswalks"><i class="fa fa-check"></i><b>2.2</b> Year to year crosswalks</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html"><i class="fa fa-check"></i><b>3</b> Predicting the State House, Part 3</a><ul>
+<li class="chapter" data-level="3.1" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#prepping-the-data-for-analysis"><i class="fa fa-check"></i><b>3.1</b> Prepping the data for analysis</a></li>
+<li class="chapter" data-level="3.2" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#thinking-ahead"><i class="fa fa-check"></i><b>3.2</b> Thinking ahead</a></li>
+<li class="chapter" data-level="3.3" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#the-model"><i class="fa fa-check"></i><b>3.3</b> The model</a></li>
+<li class="chapter" data-level="3.4" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#building-2018"><i class="fa fa-check"></i><b>3.4</b> Building 2018</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html"><i class="fa fa-check"></i><b>4</b> Predicting the State House</a><ul>
+<li class="chapter" data-level="4.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#the-pennsylvania-state-house"><i class="fa fa-check"></i><b>4.1</b> The Pennsylvania State House</a></li>
+<li class="chapter" data-level="4.2" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#overview-of-the-data"><i class="fa fa-check"></i><b>4.2</b> Overview of the Data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#exercise-1-fit-a-model"><i class="fa fa-check"></i><b>4.2.1</b> Exercise 1: Fit a Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#our-model"><i class="fa fa-check"></i><b>4.3</b> Our model</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#using-contemporaneous-data"><i class="fa fa-check"></i><b>4.3.1</b> Using contemporaneous data</a></li>
+<li class="chapter" data-level="4.3.2" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#the-model-1"><i class="fa fa-check"></i><b>4.3.2</b> The model</a></li>
+<li class="chapter" data-level="4.3.3" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#bootstrapping"><i class="fa fa-check"></i><b>4.3.3</b> Bootstrapping</a></li>
+<li class="chapter" data-level="4.3.4" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#crosswalking"><i class="fa fa-check"></i><b>4.3.4</b> Crosswalking</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#fitting-the-model"><i class="fa fa-check"></i><b>4.4</b> Fitting the model</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#exercise-2-make-a-diagnostic-plot"><i class="fa fa-check"></i><b>4.4.1</b> Exercise 2: Make a diagnostic plot</a></li>
+<li class="chapter" data-level="4.4.2" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#more-diagnostics"><i class="fa fa-check"></i><b>4.4.2</b> More diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#results-for-all-years"><i class="fa fa-check"></i><b>4.5</b> Results for all years</a></li>
+<li class="chapter" data-level="4.6" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#predicting-2018"><i class="fa fa-check"></i><b>4.6</b> Predicting 2018</a></li>
+<li class="chapter" data-level="4.7" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#fast-forward-to-today"><i class="fa fa-check"></i><b>4.7</b> Fast forward to today</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The PA Election Relational Database</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">The PA Election Relational Database</h1>
+<p class="author"><em>Jonathan Tannen</em></p>
+<p class="date"><em>March 20, 2019</em></p>
+</div>
+<div id="predicting-the-state-house-part-1" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Predicting the State House, Part 1</h1>
+<p>I’m teaching a workshop at Penn’s <a href="https://www.eventbrite.com/e/penn-musa-election-analytics-workshop-tickets-56058974903">Masters of Urban Spatial Analytics</a> program. I’m presenting my work <a href="https://sixtysixwards.com/home/model-update-is-the-race-really-is-the-race-really-a-tossup-it-depends-on-the-formerly-uncontested-incumbents">predicting the 2018 State House race</a>. It’s forced me to organize my code, and I think it’s useful enough that I’ll be posting the course resources here as well. This tutorial is organized into four parts: the Relational Database, Processing the GIS Geographies, Prepping the Data for Analysis, and Making the Predictions. In this post, the Relational Database.</p>
+<p><em>All of the data is available at <a href="https://github.com/jtannen/sth_predictions" class="uri">https://github.com/jtannen/sth_predictions</a> or on the <a href="https://github.com/PennMUSA/ElectionAnalyticsWorkshop">Penn MUSA GitHub repo</a></em></p>
+<div id="the-relational-database" class="section level2">
+<h2><span class="header-section-number">1.1</span> The Relational Database</h2>
+<p>Before we can talk about modelling, I’ll outline the data as I currently have it organized. I’ve built a “Relational Database” <a href="https://web.stanford.edu/~gentzkow/research/CodeAndData.pdf">(Chapter 5)</a> out of data from the wonderful <a href="https://github.com/openelections/openelections-data-pa">Open Elections Project</a>.</p>
+<p>A relational database consists of separate rectangular datasets. Each dataset has a column or set of columns that provide a unique key. The other data in that row should be only data that applies to that row; you don’t want data in multiple rows that represent the same information.</p>
+<p>For example, part of my data-base is the data.frame <code>results</code>. The key for this data.frame is four columns:</p>
+<ul>
+<li><code>race</code> (e.g. &quot;2016 G STH STH-8&quot;, meaning the competition for the 2016 General, State House district 8)</li>
+<li><code>candidate</code> (e.g. &quot;JUDITH D HINES (STH)&quot;)</li>
+<li><code>county_code_.</code> and <code>precinct_code</code>, which identify unique precincts. These four values provide unique identifiers for the row. <code>vote_total</code> is the votes received for that row. The dataframe should contain no data that isn’t unique across rows. For example, it doesn’t contain the candidate’s gender (which should be in another data.frame, <code>candidates</code>), or the total turnout for the race (which should be in <code>races</code>).</li>
+</ul>
+<p>The magic of this setup is that it prevents duplication of data entry or other possible mistakes, while when done well, you can easily join tables to get whatever combination you need. We could join <code>results</code> with <code>candidates</code> to get <code>gender</code> if we need to for a given application.</p>
+<p>(Note: I’ve already violated the structure above, since <code>results</code> contains <code>party</code>, which is duplicated across precincts and should really belong to the table <code>candidates_to_races</code>, which has unique rows for each candidate and race, ignoring precincts. Rules are made to be broken. _shrugemoji_)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">load</span>(<span class="st">&quot;data/relational_db.rda&quot;</span>)</code></pre></div>
+<p>The database has six dataframes. <code>elections</code> has a single row for each election, meaning each year and each primary or general (separating the primaries by party). The column <code>election</code> is the unique identifier:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(elections)</code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   election_year election_type election   cycle
+##   &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;
+## 1 2016          P-DEM         2016 P-DEM Presidential
+## 2 2016          P-REP         2016 P-REP Presidential
+## 3 2016          P-            2016 P-    Presidential
+## 4 2016          G             2016 G     Presidential
+## 5 2014          P-REP         2014 P-REP Gubernatorial
+## 6 2014          P-DEM         2014 P-DEM Gubernatorial</code></pre>
+<p><code>candidates</code> has a single row for each candidate. I’ve done manual cleaning to match up candidates across years who use slightly different names (e.g. different middle initials), so in theory these are unique people. This has one big exception: the same candidate running for different offices will show up as two candidates. This felt right to me, it will later mean that success in a State House race doesn’t inform success is a Gubernatorial race. The table is actually unique candidate + office combinations.</p>
+<p>In <code>candidates</code>, column <code>names</code> is a list of all of the names that candidate has used on a ballot. Column <code>parties</code> is the list of <code>parties</code> the candidate has ever run as, and <code>party_guess</code> is my guess at whether a candidate is one of (Democrat, Republican), which I will use when they appear on the ballot as a third party. This is usually easy: a candidate who ran as a Republican four years ago might run as D/R if they’re unopposed. If they’ve never run as a Dem or a Rep, I leave them as the third party on the ballot. The column <code>gender</code> is just my guess of the candidate’s gender based on their name/googling. (Let me know if you find any issues!). The column <code>candidate</code> is the unique identifier:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(candidates)</code></pre></div>
+<pre><code>## # A tibble: 6 x 6
+##   office candidate                 names       parties  party_guess gender
+##   &lt;chr&gt;  &lt;chr&gt;                     &lt;list&gt;      &lt;list&gt;   &lt;chr&gt;       &lt;fct&gt;
+## 1 GOV    ALLYSON Y SCHWARTZ (GOV)  &lt;chr [3 x ~ &lt;chr [1~ DEM         F
+## 2 GOV    ANTHONY HARDY WILLIAMS (~ &lt;chr [3 x ~ &lt;chr [1~ DEM         M
+## 3 GOV    BOB CASEY (GOV)           &lt;chr [3 x ~ &lt;chr [1~ DEM         M
+## 4 GOV    DAN ONORATO (GOV)         &lt;chr [3 x ~ &lt;chr [2~ DEM         M
+## 5 GOV    ED RENDELL (GOV)          &lt;chr [3 x ~ &lt;chr [4~ DEM         M
+## 6 GOV    JACK WAGNER (GOV)         &lt;chr [3 x ~ &lt;chr [1~ DEM         M</code></pre>
+<p>Elections are divided into races. Each <code>race</code> is the competition for a given office in a given election. State-wide races are given the district <code>PA</code>. I populate the column <code>is_contested</code> as whether the second-place candidate won at least 5% of the vote; the goal is to identify whether two candidates’ names were actually on the ballot, and rule out write-ins. All entries in the <code>.*_candidate</code> columns match the unique identifier in <code>candidates</code>. The column <code>race</code> is the unique identifier here:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(races)</code></pre></div>
+<pre><code>## # A tibble: 6 x 15
+##   election office district is_contested race_turnout race  winner_party
+##   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;    &lt;lgl&gt;               &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+## 1 2002 G   GOV    GOV-PA   TRUE              3580986 2002~ DEM
+## 2 2002 G   STH    STH-1    TRUE                12238 2002~ DEM
+## 3 2002 G   STH    STH-10   FALSE               14724 2002~ REP
+## 4 2002 G   STH    STH-100  TRUE                13605 2002~ REP
+## 5 2002 G   STH    STH-101  TRUE                16806 2002~ REP
+## 6 2002 G   STH    STH-102  TRUE                18222 2002~ REP
+## # ... with 8 more variables: winner_candidate &lt;chr&gt;,
+## #   winner_pct_vote &lt;dbl&gt;, is_demrep &lt;lgl&gt;, dem_candidate &lt;chr&gt;,
+## #   dem_votes &lt;dbl&gt;, rep_candidate &lt;chr&gt;, rep_votes &lt;dbl&gt;,
+## #   pct_dem_2party &lt;dbl&gt;</code></pre>
+<p>The dataframe <code>candidates_to_races</code> maps candidates to races. This includes their total <code>candidate_race_votes</code>, the <code>party</code> that they were listed on the ballot as for this race as well as <code>party_replaced</code>, which imputes Dem/Rep using <code>party_guess</code> if they’re listed as a third party and there are no other Dems or no other Reps. Note: <code>is_incumbent</code> indicates whether the candidate won any seat for this office in the last cycle, regardless of district (which is important since there was redistricting in 2012.) For example, I consider Jason Altmire an incumbent in his 2012 race for USC-12, even though two years earlier he won in USC-4.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(candidates_to_races)</code></pre></div>
+<pre><code>## # A tibble: 6 x 7
+##   race  candidate party candidate_race_~ is_incumbent party_guess
+##   &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;            &lt;dbl&gt; &lt;lgl&gt;        &lt;chr&gt;
+## 1 2002~ ED RENDE~ DEM            1911587 NA           DEM
+## 2 2002~ KEN V KR~ LIB              40918 NA           LIB
+## 3 2002~ MICHAEL ~ GRN              38378 NA           GRN
+## 4 2002~ MIKE FIS~ REP            1589030 NA           REP
+## 5 2002~ BILL STE~ REP               3343 NA           REP
+## 6 2002~ LINDA BE~ DEM               8895 NA           DEM
+## # ... with 1 more variable: party_replaced &lt;chr&gt;</code></pre>
+<p>The table <code>precincts_to_districts</code> is a mapping of which precincts voted for which districts in each year. I’ll discuss this (and why we need it) in <a href="02_geographies.html">Processing GIS</a>.</p>
+<p>Finally, <code>results</code> is the good stuff: the precinct-level results.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(results)</code></pre></div>
+<pre><code>## # A tibble: 6 x 6
+##   race         candidate      county_code_. precinct_code party vote_total
+##   &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;      &lt;dbl&gt;
+## 1 2016 P-DEM ~ HILLARY CLINT~ 1             10            DEM           37
+## 2 2016 P-DEM ~ HILLARY CLINT~ 1             20            DEM           42
+## 3 2016 P-DEM ~ HILLARY CLINT~ 1             30            DEM           13
+## 4 2016 P-DEM ~ HILLARY CLINT~ 1             40            DEM          105
+## 5 2016 P-DEM ~ HILLARY CLINT~ 1             50            DEM           35
+## 6 2016 P-DEM ~ HILLARY CLINT~ 1             60            DEM           59</code></pre>
+<p>That’s it! Now for the hard part: <a href="02_geographies.html">Processing the GIS geographies</a>.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="predicting-the-state-house-part-2.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["election_analytics_musa_workshop.pdf", "election_analytics_musa_workshop.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 4 Predicting the State House | The PA Election Relational Database</title>
+  <meta name="description" content="Chapter 4 Predicting the State House | The PA Election Relational Database">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 4 Predicting the State House | The PA Election Relational Database" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Predicting the State House | The PA Election Relational Database" />
+  
+  
+  
+
+<meta name="author" content="Jonathan Tannen">
+
+
+<meta name="date" content="2019-03-20">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="predicting-the-state-house-part-3.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://github.com/PennMUSA/ElectionAnalyticsWorkshop">Election Analytics Penn MUSA Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Predicting the State House, Part 1</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#the-relational-database"><i class="fa fa-check"></i><b>1.1</b> The Relational Database</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="predicting-the-state-house-part-2.html"><a href="predicting-the-state-house-part-2.html"><i class="fa fa-check"></i><b>2</b> Predicting the State House, Part 2</a><ul>
+<li class="chapter" data-level="2.1" data-path="predicting-the-state-house-part-2.html"><a href="predicting-the-state-house-part-2.html#creating-geographies"><i class="fa fa-check"></i><b>2.1</b> Creating Geographies</a></li>
+<li class="chapter" data-level="2.2" data-path="predicting-the-state-house-part-2.html"><a href="predicting-the-state-house-part-2.html#year-to-year-crosswalks"><i class="fa fa-check"></i><b>2.2</b> Year to year crosswalks</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html"><i class="fa fa-check"></i><b>3</b> Predicting the State House, Part 3</a><ul>
+<li class="chapter" data-level="3.1" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#prepping-the-data-for-analysis"><i class="fa fa-check"></i><b>3.1</b> Prepping the data for analysis</a></li>
+<li class="chapter" data-level="3.2" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#thinking-ahead"><i class="fa fa-check"></i><b>3.2</b> Thinking ahead</a></li>
+<li class="chapter" data-level="3.3" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#the-model"><i class="fa fa-check"></i><b>3.3</b> The model</a></li>
+<li class="chapter" data-level="3.4" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#building-2018"><i class="fa fa-check"></i><b>3.4</b> Building 2018</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html"><i class="fa fa-check"></i><b>4</b> Predicting the State House</a><ul>
+<li class="chapter" data-level="4.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#the-pennsylvania-state-house"><i class="fa fa-check"></i><b>4.1</b> The Pennsylvania State House</a></li>
+<li class="chapter" data-level="4.2" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#overview-of-the-data"><i class="fa fa-check"></i><b>4.2</b> Overview of the Data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#exercise-1-fit-a-model"><i class="fa fa-check"></i><b>4.2.1</b> Exercise 1: Fit a Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#our-model"><i class="fa fa-check"></i><b>4.3</b> Our model</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#using-contemporaneous-data"><i class="fa fa-check"></i><b>4.3.1</b> Using contemporaneous data</a></li>
+<li class="chapter" data-level="4.3.2" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#the-model-1"><i class="fa fa-check"></i><b>4.3.2</b> The model</a></li>
+<li class="chapter" data-level="4.3.3" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#bootstrapping"><i class="fa fa-check"></i><b>4.3.3</b> Bootstrapping</a></li>
+<li class="chapter" data-level="4.3.4" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#crosswalking"><i class="fa fa-check"></i><b>4.3.4</b> Crosswalking</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#fitting-the-model"><i class="fa fa-check"></i><b>4.4</b> Fitting the model</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#exercise-2-make-a-diagnostic-plot"><i class="fa fa-check"></i><b>4.4.1</b> Exercise 2: Make a diagnostic plot</a></li>
+<li class="chapter" data-level="4.4.2" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#more-diagnostics"><i class="fa fa-check"></i><b>4.4.2</b> More diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#results-for-all-years"><i class="fa fa-check"></i><b>4.5</b> Results for all years</a></li>
+<li class="chapter" data-level="4.6" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#predicting-2018"><i class="fa fa-check"></i><b>4.6</b> Predicting 2018</a></li>
+<li class="chapter" data-level="4.7" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#fast-forward-to-today"><i class="fa fa-check"></i><b>4.7</b> Fast forward to today</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The PA Election Relational Database</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="predicting-the-state-house" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Predicting the State House</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">source</span>(<span class="st">&quot;utils/util.R&quot;</span>)
+<span class="kw">set.seed</span>(<span class="dv">215</span>)
+
+## df.rda was prepped in 03_rectangular_data.Rmd
+vote_df &lt;-<span class="st"> </span><span class="kw">safe_load</span>(<span class="st">&quot;outputs/df.rda&quot;</span>)
+vote_df &lt;-<span class="st"> </span>vote_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>()</code></pre></div>
+<div id="the-pennsylvania-state-house" class="section level2">
+<h2><span class="header-section-number">4.1</span> The Pennsylvania State House</h2>
+<p>The Pennsylvania General Assembly is divided into two houses, the Upper and Lower. The Upper (aka the State Senate) has 50 senators, each of whom serve four-year terms. The Lower (aka the State House) has 203 representatives who serve two-year terms. We’re focused on the second (the Senate was certainly out of play in 2018, since only 25 seats are open in a given year).</p>
+<p>Control of the State House has swung sharply. Democrats eked out a 102-seat majority in 2006, but quickly lost it in 2010, and Republicans have dominated since. The effect of gerrymandering are apparent in the 2012-to-2014 shift (remember that due to a court challenge, <a href="02_geographies.html">the old districts were used in 2012</a>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">party_colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">Dem =</span> strong_blue, <span class="dt">Rep =</span> strong_red)
+
+seats_won_by_party &lt;-<span class="st"> </span>vote_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">summarise</span>(
+      <span class="dt">Dem =</span> <span class="kw">sum</span>(sth_pctdem <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>),
+      <span class="dt">Rep =</span> <span class="kw">sum</span>(sth_pctdem <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.5</span>)
+    ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">group_by</span>() <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">gather</span>(<span class="dt">key=</span><span class="st">&quot;party&quot;</span>, <span class="dt">value=</span><span class="st">&quot;n_seats&quot;</span>, Dem<span class="op">:</span>Rep)
+
+<span class="kw">ggplot</span>(
+  seats_won_by_party,
+  <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">asnum</span>(year), <span class="dt">y =</span> n_seats, <span class="dt">color =</span> party)
+) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="fl">101.5</span>, <span class="dt">color =</span> <span class="st">&quot;grey30&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> party), <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span>party_colors, <span class="dt">guide=</span><span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_sixtysix</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">annotate</span>(
+    <span class="st">&quot;text&quot;</span>, 
+    <span class="dt">label =</span> <span class="kw">c</span>(<span class="st">&quot;Dem&quot;</span>, <span class="st">&quot;Rep&quot;</span>), 
+    <span class="dt">x =</span> <span class="dv">2015</span>, <span class="dt">y=</span><span class="kw">c</span>(<span class="dv">86</span>, <span class="dv">117</span>), 
+    <span class="dt">color=</span><span class="kw">c</span>(strong_blue, strong_red),
+    <span class="dt">fontface=</span><span class="st">&quot;bold&quot;</span>
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="st">&#39;&#39;</span>, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">2002</span>,<span class="dv">2016</span>,<span class="dv">2</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="st">&quot;Number of Seats won&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Pennsylvania House Party Control&quot;</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/state_house_plot-1.png" width="2100" /></p>
+<p>In 2016, Republicans increased their dominance of the house to <strong>39 seats</strong>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+<span class="kw">library</span>(rgeos)
+
+sth_<span class="dv">11</span> &lt;-<span class="st"> </span><span class="kw">st_read</span>(
+  <span class="st">&quot;data/state_house/tigris_lower_house_2011.shp&quot;</span>, 
+  <span class="dt">quiet=</span><span class="ot">TRUE</span>
+) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">vintage=</span><span class="st">&quot;&lt;=2012&quot;</span>)
+
+sth_<span class="dv">15</span> &lt;-<span class="st"> </span><span class="kw">st_read</span>(
+  <span class="st">&quot;data/state_house/tigris_lower_house_2015.shp&quot;</span>, 
+  <span class="dt">quiet=</span><span class="ot">TRUE</span>
+) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">vintage=</span><span class="st">&quot;&gt;2012&quot;</span>)
+
+sth_sf &lt;-<span class="st"> </span><span class="kw">rbind</span>(sth_<span class="dv">11</span>, sth_<span class="dv">15</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">sth =</span> SLDLST)
+sth_pts &lt;-<span class="st"> </span><span class="kw">mapply</span>(st_centroid, sth_sf<span class="op">$</span>geometry) <span class="op">%&gt;%</span><span class="st"> </span>t
+sth_sf &lt;-<span class="st"> </span>sth_sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">x=</span>sth_pts[,<span class="dv">1</span>], <span class="dt">y=</span>sth_pts[,<span class="dv">2</span>])
+
+pa_union &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/congress/tigris_usc_2015.shp&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">st_union</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(sth_<span class="dv">15</span>))</code></pre></div>
+<pre><code>## Reading layer `tigris_usc_2015&#39; from data source `\\jove.design.upenn.edu\home\staff-admin\PRAX\sydng\My Documents\UrbanSpatial\sixtysixwards_musa_workshop\ElectionAnalyticsWorkshop\data\congress\tigris_usc_2015.shp&#39; using driver `ESRI Shapefile&#39;
+## Simple feature collection with 18 features and 12 fields
+## geometry type:  POLYGON
+## dimension:      XY
+## bbox:           xmin: 1189586 ymin: 140905.3 xmax: 2814854 ymax: 1165942
+## epsg (SRID):    NA
+## proj4string:    +proj=lcc +lat_1=40.96666666666667 +lat_2=39.93333333333333 +lat_0=39.33333333333334 +lon_0=-77.75 +x_0=600000.0000000001 +y_0=0 +datum=NAD83 +units=us-ft +no_defs</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sth_vintage &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="dt">year =</span> <span class="kw">seq</span>(<span class="dv">2002</span>, <span class="dv">2018</span>, <span class="dv">2</span>)
+) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">vintage =</span> <span class="kw">ifelse</span>(year <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2012</span>, <span class="st">&quot;&lt;=2012&quot;</span>, <span class="st">&quot;&gt;2012&quot;</span>))
+
+<span class="kw">ggplot</span>(
+  sth_sf <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(vintage <span class="op">==</span><span class="st"> &quot;&gt;2012&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">left_join</span>(
+      vote_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>)
+    )
+) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">fill=</span><span class="st">&quot;white&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(
+    <span class="kw">aes</span>(
+      <span class="dt">x=</span>x,
+      <span class="dt">y=</span>y,
+      <span class="dt">color =</span> (sth_pctdem <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>), 
+      <span class="dt">alpha =</span> <span class="kw">abs</span>(sth_pctdem <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span>)
+    ),
+    <span class="dt">pch=</span><span class="dv">16</span>,
+    <span class="dt">size=</span><span class="dv">4</span>
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(
+    <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;TRUE&quot;</span>=strong_blue, <span class="st">&quot;FALSE&quot;</span>=strong_red),
+    <span class="dt">guide=</span><span class="ot">FALSE</span>
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_alpha_continuous</span>(<span class="dt">range=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.5</span>), <span class="dt">guide=</span><span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_map_sixtysix</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;State House 2016 Results&quot;</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/map_sth-1.png" width="2100" /></p>
+<p>They did so with a ton of races between 55-70% Republican, the kind of races that might be in play in a D+9 election FiveThirtyEight was predicting.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(
+  vote_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>),
+  <span class="kw">aes</span>(<span class="dt">x=</span>sth_pctdem, <span class="dt">fill=</span>(sth_pctdem <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>))
+) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">boundary =</span> <span class="fl">0.5</span>, <span class="dt">binwidth =</span> <span class="fl">0.05</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_manual</span>(
+    <span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;TRUE&quot;</span>=strong_blue, <span class="st">&quot;FALSE&quot;</span>=strong_red),
+    <span class="dt">guide=</span><span class="ot">FALSE</span>
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_sixtysix</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;State House 2016 results&quot;</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/histogram_of_2016-1.png" width="2100" /></p>
+<p>Flashback to October 2018. As we enter the 2018 election, it’s nationally clear that Democrats are going to have a strong election. But how strong? And how will that translate down to these State Races? Simply put: do Democrats have a shot to take back the PA House?</p>
+<p>In this post we’ll predict the outcomes of the race.</p>
+</div>
+<div id="overview-of-the-data" class="section level2">
+<h2><span class="header-section-number">4.2</span> Overview of the Data</h2>
+<p>The main dataframe: <strong><code>vote_df</code></strong>: a data.frame with a row for each race. It includes lagged variables from prior elections, cross-walked where necessary.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vote_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>) <span class="op">%&gt;%</span><span class="st"> </span>head <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</code></pre></div>
+<pre><code>##                 race sth                DEM_candidate DEM_is_incumbent
+## 1   2016 G STH STH-1 001      PATRICK J HARKINS (STH)             TRUE
+## 2  2016 G STH STH-10 010        JARET A GIBBONS (STH)             TRUE
+## 3 2016 G STH STH-100 100       DALE ALLEN HAMBY (STH)            FALSE
+## 4 2016 G STH STH-101 101 LORRAINE HELEN SCUDDER (STH)            FALSE
+## 5 2016 G STH STH-102 102           JACOB H LONG (STH)            FALSE
+## 6 2016 G STH STH-103 103            PATTY H KIM (STH)             TRUE
+##   DEM_votes_sth                REP_candidate REP_is_incumbent
+## 1         14785         WILLIAM CROTTY (STH)            FALSE
+## 2         11224 AARON JOSEPH BERNSTINE (STH)            FALSE
+## 3          6140         BRYAN D CUTLER (STH)             TRUE
+## 4          9752    FRANCIS XAVIER RYAN (STH)            FALSE
+## 5          8549      RUSSELL H DIAMOND (STH)             TRUE
+## 6         20846                         &lt;NA&gt;               NA
+##   REP_votes_sth sth_pctdem incumbent_is_dem dem_is_uncontested year
+## 1          5491  0.7291872                1                  0 2016
+## 2         15807  0.4152270                1                  0 2016
+## 3         17416  0.2606555               -1                  0 2016
+## 4         19800  0.3299946                0                  0 2016
+## 5         19858  0.3009469               -1                  0 2016
+## 6            NA  1.0000000                1                  1 2016
+##   usc_pctdem uspgov_pctdem_statewide usc_pctdem_statewide
+## 1  0.3487901               0.4962162            0.4588045
+## 2  0.3736409               0.4962162            0.4588045
+## 3  0.4334167               0.4962162            0.4588045
+## 4  0.4093855               0.4962162            0.4588045
+## 5  0.4100933               0.4962162            0.4588045
+## 6  0.3459720               0.4962162            0.4588045
+##   sth_pctdem_lagged uspgov_pctdem_lagged sth_frac_contested_lagged
+## 1         1.0000000            0.7252871                         0
+## 2         1.0000000            0.5103014                         0
+## 3         0.0000000            0.3410035                         0
+## 4         0.2932679            0.4109548                         1
+## 5         0.3671351            0.3575663                         1
+## 6         1.0000000            0.7775791                         0
+##   uspgov_pctdem_statewide_lagged usc_pctdem_statewide_lagged
+## 1                      0.5493505                   0.4446998
+## 2                      0.5493505                   0.4446998
+## 3                      0.5493505                   0.4446998
+## 4                      0.5493505                   0.4446998
+## 5                      0.5493505                   0.4446998
+## 6                      0.5493505                   0.4446998</code></pre>
+<div id="exercise-1-fit-a-model" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Exercise 1: Fit a Model</h3>
+<p>Pause here, and fit a model to predict <code>sth_pctdem</code> using <code>vote_df</code>.</p>
+</div>
+</div>
+<div id="our-model" class="section level2">
+<h2><span class="header-section-number">4.3</span> Our model</h2>
+<p><em>NOTE: This is different from the model I actually used to make my predictions. I’ve cleaned up the data significantly, and improved the method using my <a href="https://sixtysixwards.com/home/the-state-house-model-did-really-well-but-it-was-broken/">lessons learned</a>. It’s what I wish I’d done.</em></p>
+<p>Let’s call <span class="math inline">\(sth_{yr}\)</span> the two-party percent of the vote for the Democrat for State House in year <span class="math inline">\(y\)</span> in race <span class="math inline">\(r\)</span>.</p>
+<div id="using-contemporaneous-data" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Using contemporaneous data</h3>
+<p>To predict an election, there are obviously useful covariates: historical results in the district, incumbency, four-year cycles. But the easy data leaves a gaping hole: all of the races can swing together from election to election. That is, years have large “random effects”.</p>
+<p>In a best case scenario, we would have polls of voters on the State House races. Then we could capture simple-seeming things that our data has no idea of: How charismatic is a candidate? Are they well organized? Have they been running ads? Polls are what FiveThirtyEight uses, and why they get such good predictions. Of course, noboday actually publicly polls the 203 PA State House races.</p>
+<p>In a worst case scenario, we would have to use only data from prior elections. This would leave us completely unable to predict large swings in public sentiment, and we would have to expand our uncertainty to capture the full range of election-level random effects (aka the way that all races are correlated from year to year). Imagine trying to predict the 2018 election using only the 2016 and 2014 results, without any data from 2018 that signaled Something Is Different. We would need to produce predictions capable of saying both “maybe this year is like 2010” and “maybe this year is like 2006”.</p>
+<p>Luckily, we are somewhere in between. While we don’t have polling on this year’s State House races, we do have polling on the US Congressional races. To the extent that USC races are correlated with STH races (probably a lot), we can use the USC polls to estimate the overall tenor of the race. Better yet, we don’t have to actually use polling data itself, because FiveThirtyEight has already translated them into predicted votes.</p>
+</div>
+<div id="the-model-1" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> The model</h3>
+<p>Here’s the plan: model the results in a State House race as a function of past results in that district along with the US Congress results <em>in that year</em>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">contested_form &lt;-<span class="st"> </span>sth_pctdem <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span>
+<span class="st">  </span>sth_pctdem_lagged <span class="op">+</span>
+<span class="st">  </span>incumbent_is_dem <span class="op">+</span>
+<span class="st">  </span>incumbent_is_running<span class="op">:</span>sth_pctdem_lagged <span class="op">+</span>
+<span class="st">  </span>usc_pctdem <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span>usc_pctdem_statewide <span class="op">+</span>
+<span class="st">  </span><span class="kw">I</span>(uspgov_pctdem_lagged <span class="op">-</span><span class="st"> </span>uspgov_pctdem_statewide_lagged)</code></pre></div>
+<p>where <code>incumbent_is_dem</code> is <span class="math inline">\(1\)</span> if the democratic candidate is an incumbent, <span class="math inline">\(-1\)</span> if the republican is, and <span class="math inline">\(0\)</span> otherwise; <code>usc_pct_dem</code> is the result in the entire USC district that the race belongs to (as opposed to just in the precinct); the <code>usc_pctdem_statewide</code> is the state-wide USC result (weighted by votes); and <code>uspgov_pctdem</code> is the result of either the USP or the GOV race, whichever occurred that year.</p>
+<p>One thing to note is that I don’t include year-level random effects in this specification. But we’ll be careful about year-level effects later. We only have a few years in the dataset (we’ll be able to use 7), so we don’t want to use too many year-level covariates (I have two: the intercept and the statewide vote for USC). On the other hand, we have 203 races per year, so we can include a ton of covariates that vary across races: incumbency, past results, USC results for specific districts.</p>
+<p>The above model will work well for races where everything was contested, but we clearly shouldn’t include uncontested races: we already know what those results will be, and the historical 100%s could mess up our other estimates. So we’ll do two things: for races that are uncontested in year <span class="math inline">\(y\)</span>, we will not model them at all, since we know the running candidate will win 100% of the vote. For races that were not contested last cycle but are contested this year, we will model them entirely separately, using a different equation:</p>
+<p><strong>Model for formerly uncontested races:</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">uncontested_form &lt;-<span class="st"> </span>sth_pctdem <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span>dem_won_lagged <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span>incumbent_is_running <span class="op">+</span>
+<span class="st">  </span>dem_won_lagged<span class="op">:</span>incumbent_is_running <span class="op">+</span>
+<span class="st">  </span>usc_pctdem <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span>usc_pctdem_statewide <span class="op">+</span>
+<span class="st">  </span><span class="kw">I</span>(uspgov_pctdem_lagged <span class="op">-</span><span class="st"> </span>uspgov_pctdem_statewide_lagged)</code></pre></div>
+</div>
+<div id="bootstrapping" class="section level3">
+<h3><span class="header-section-number">4.3.3</span> Bootstrapping</h3>
+<p>To generate uncertainty and cross-validate, we’ll bootstrap.</p>
+<p>We won’t naively do row-level bootstrapping. I’m seriously worried that there could be systematic swings from election to election (aka election-level random effects or interactions). By only bootstrapping the rows, we would be cheating then: we would actually always have observations from every election, and never get real uncertainty of election-level randomness.</p>
+<p>Instead, we want the Multiway Bootstrap. We’ll bootstrap at the year-level where we think effects are plausibly independent. Notice that this takes our N down from 203 * 7 races down to 7 years. Oof.</p>
+<p>Here’s my approach: I’ll fit the model by bootstrapping years. In order to validate, we’ll walk through holding out each election as our test set. We only have seven elections to do this for (2004 - 2016; we can’t use 2002 since we need lagged data), but hopefully that’s enough to spot bad behaviors. This isn’t the best practice of never touching a test set, but when N=7 you can’t do best practices. Instead, I claim I’ve chosen a super conservative approach, and we’ll need to be honest about not overfitting the data.</p>
+</div>
+<div id="crosswalking" class="section level3">
+<h3><span class="header-section-number">4.3.4</span> Crosswalking</h3>
+<p>Before we get to fitting the model, an aside. Remember that some of the lagged data required crosswalking. Thus, some of the lagged historic races may be <em>fractionally contested</em>: some of the area may have had uncontested races, and others contested.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(vote_df<span class="op">$</span>sth_frac_contested_lagged)</code></pre></div>
+<p><img src="04_model_files/figure-html/contested_hist-1.png" width="2100" /></p>
+<p>I’m going to arbitrarily call you uncontested if half of the population or more lived in races that were uncontested last cycle. _shrugemoji_</p>
+<p>Ok, fit the model.</p>
+</div>
+</div>
+<div id="fitting-the-model" class="section level2">
+<h2><span class="header-section-number">4.4</span> Fitting the model</h2>
+<p>We’ll build up our helper functions to fit the model. First, we’ll write <code>fit_once</code>, which fits a single model for a single year.</p>
+<p>Then we’ll write <code>bootstrap</code>, which bootstraps years of the data.frame, and runs <code>fit_once</code> many times, generating bootstrapped predictions for a single holdout year.</p>
+<p>Finally, we’ll loop through each year as a holdout, getting <code>bootstrap</code>ed results for each.</p>
+<p>Let’s create an S4 class to hold our results. The result of a single model fit will return the following: - Integer <code>holdout_year</code>. - A data.frame with the predicted mean outcome of STH; columns <code>sth</code>, <code>sth_pctdem</code>, <code>pred</code>. - A data.frame with the predictions for the test set plus random noise of the appropriate size, to serve in our full prediction interval.<br />
+- A tidy dataframe with the coefficients of the regression fits. - A dataframe with generic summary stats we can add later</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setClass</span>(
+  <span class="st">&quot;FitResult&quot;</span>,
+  <span class="kw">representation</span>(
+    <span class="dt">holdout_year =</span> <span class="st">&quot;integer&quot;</span>,
+    <span class="dt">pred =</span> <span class="st">&quot;data.frame&quot;</span>,
+    <span class="dt">test_sample =</span> <span class="st">&quot;data.frame&quot;</span>,
+    <span class="dt">coefs =</span> <span class="st">&quot;data.frame&quot;</span>,
+    <span class="dt">summary_stats =</span> <span class="st">&quot;data.frame&quot;</span>
+  )
+)</code></pre></div>
+<p>We’ll also create an S4 class called Condition, which contains how to split up the data into models (for us, “contested”, “uncontested”, and “previously_uncontested”).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setClass</span>(
+  <span class="st">&quot;Condition&quot;</span>,
+  <span class="dt">slots=</span><span class="kw">c</span>(
+    <span class="dt">name=</span><span class="st">&quot;character&quot;</span>,
+    <span class="dt">formula=</span><span class="st">&quot;formula&quot;</span>,
+    <span class="dt">filter_func=</span><span class="st">&quot;function&quot;</span>, ## a function of df that returns vector of TRUE/FALSE
+    <span class="dt">warn=</span><span class="st">&quot;logical&quot;</span>  ## should the model warn if the fit raises a warning?
+  )
+)
+
+conditions &lt;-<span class="st"> </span><span class="kw">c</span>(
+  <span class="kw">new</span>(
+    <span class="st">&quot;Condition&quot;</span>, 
+    <span class="dt">name=</span><span class="st">&quot;uncontested&quot;</span>, 
+    <span class="dt">formula=</span>sth_pctdem <span class="op">~</span><span class="st"> </span><span class="kw">sign</span>(dem_is_uncontested), 
+    <span class="dt">filter_func=</span><span class="cf">function</span>(df) <span class="kw">abs</span>(df<span class="op">$</span>dem_is_uncontested) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>,
+    <span class="dt">warn=</span><span class="ot">FALSE</span>
+  ),
+  <span class="kw">new</span>(
+    <span class="st">&quot;Condition&quot;</span>, 
+    <span class="dt">name=</span><span class="st">&quot;previously_uncontested&quot;</span>, 
+    <span class="dt">formula=</span>uncontested_form, 
+    <span class="dt">filter_func=</span><span class="cf">function</span>(df) {
+      <span class="kw">abs</span>(df<span class="op">$</span>dem_is_uncontested) <span class="op">!=</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>df<span class="op">$</span>sth_frac_contested_lagged <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.5</span>
+    },
+    <span class="dt">warn=</span><span class="ot">TRUE</span>
+  ),
+  <span class="kw">new</span>(
+    <span class="st">&quot;Condition&quot;</span>, 
+    <span class="dt">name=</span><span class="st">&quot;contested&quot;</span>, 
+    <span class="dt">formula=</span>contested_form, 
+    <span class="dt">filter_func=</span><span class="cf">function</span>(df) {
+      <span class="kw">abs</span>(df<span class="op">$</span>dem_is_uncontested) <span class="op">!=</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>df<span class="op">$</span>sth_frac_contested_lagged <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>
+    },
+    <span class="dt">warn=</span><span class="ot">TRUE</span>
+  )
+)
+
+add_cols &lt;-<span class="st"> </span><span class="cf">function</span>(df0){
+  df0<span class="op">$</span>dem_won_lagged &lt;-<span class="st"> </span>df0<span class="op">$</span>sth_pctdem_lagged <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>
+  df0<span class="op">$</span>incumbent_is_running &lt;-<span class="st"> </span><span class="kw">abs</span>(df0<span class="op">$</span>incumbent_is_dem)
+  df0<span class="op">$</span>uspgov_is_usp &lt;-<span class="st"> </span>(<span class="kw">asnum</span>(df0<span class="op">$</span>year) <span class="op">%%</span><span class="st"> </span><span class="dv">4</span>) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>
+  df0
+}
+
+vote_df &lt;-<span class="st"> </span>vote_df <span class="op">%&gt;%</span><span class="st"> </span>add_cols
+
+get_holdout_set &lt;-<span class="st"> </span><span class="cf">function</span>(df0, holdout_year){
+  <span class="kw">ifelse</span>(df0<span class="op">$</span>year <span class="op">%in%</span><span class="st"> </span>holdout_year, <span class="st">&quot;test&quot;</span>, <span class="st">&quot;train&quot;</span>)
+}
+
+add_condition &lt;-<span class="st"> </span><span class="cf">function</span>(df0, conditions){
+  df0<span class="op">$</span>condition &lt;-<span class="st"> </span><span class="ot">NA</span>
+  <span class="cf">for</span>(condition <span class="cf">in</span> conditions){
+    <span class="cf">if</span>(<span class="op">!</span><span class="kw">is</span>(condition, <span class="st">&quot;Condition&quot;</span>)) <span class="kw">stop</span>(<span class="st">&quot;condition is not of class Condition&quot;</span>)
+    df0<span class="op">$</span>condition[condition<span class="op">@</span><span class="kw">filter_func</span>(df0)] &lt;-<span class="st"> </span>condition<span class="op">@</span>name
+  }
+  
+  <span class="cf">if</span>(<span class="kw">any</span>(<span class="kw">is.na</span>(df0<span class="op">$</span>condition))) <span class="kw">warning</span>(<span class="st">&quot;the conditions don&#39;t cover the full dataset&quot;</span>)
+
+  <span class="kw">return</span>(df0)
+}
+
+## can&#39;t use 2002 since it doesn&#39;t have lagged data
+vote_df &lt;-<span class="st"> </span>vote_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(year <span class="op">&gt;</span><span class="st"> </span><span class="dv">2002</span>)
+vote_df &lt;-<span class="st"> </span>vote_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_condition</span>(conditions)</code></pre></div>
+<p>Let’s define <code>fit_once</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit_once &lt;-<span class="st"> </span><span class="cf">function</span>(df0, holdout_year, conditions, <span class="dt">verbose =</span> <span class="ot">TRUE</span>){
+  df0<span class="op">$</span>set &lt;-<span class="st"> </span><span class="kw">get_holdout_set</span>(df0, holdout_year)
+  df0<span class="op">$</span>pred &lt;-<span class="st"> </span><span class="ot">NA</span>
+  
+  coef_results &lt;-<span class="st"> </span><span class="kw">list</span>()
+  sd_err &lt;-<span class="st"> </span><span class="kw">list</span>()
+  <span class="cf">for</span>(cond <span class="cf">in</span> conditions){
+    <span class="cf">if</span>(<span class="op">!</span>cond<span class="op">@</span>warn) wrapper &lt;-<span class="st"> </span>suppressWarnings <span class="cf">else</span> wrapper &lt;-<span class="st"> </span>identity 
+    
+    fit &lt;-<span class="st"> </span><span class="kw">wrapper</span>(
+      <span class="kw">lm</span>(
+        cond<span class="op">@</span>formula, 
+        <span class="dt">data =</span> df0 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(condition <span class="op">==</span><span class="st"> </span>cond<span class="op">@</span>name <span class="op">&amp;</span><span class="st"> </span>set <span class="op">==</span><span class="st"> &quot;train&quot;</span>)
+      )
+    )
+    
+    sd_err[cond<span class="op">@</span>name] &lt;-<span class="st"> </span><span class="kw">sd</span>(fit<span class="op">$</span>residuals)
+    coef_results[[cond<span class="op">@</span>name]] &lt;-<span class="st"> </span>broom<span class="op">::</span><span class="kw">tidy</span>(fit) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw">mutate</span>(<span class="dt">condition=</span>cond<span class="op">@</span>name)
+    
+    df0<span class="op">$</span>pred[df0<span class="op">$</span>condition <span class="op">==</span><span class="st"> </span>cond<span class="op">@</span>name] &lt;-<span class="st"> </span><span class="kw">predict</span>(
+      fit, 
+      <span class="dt">newdata =</span> df0[df0<span class="op">$</span>condition <span class="op">==</span><span class="st"> </span>cond<span class="op">@</span>name,]
+    )
+
+    <span class="cf">if</span>(verbose) {
+      <span class="kw">print</span>(<span class="kw">sprintf</span>(<span class="st">&quot;%s Model&quot;</span>, cond<span class="op">@</span>name))
+      <span class="kw">print</span>(<span class="kw">wrapper</span>(<span class="kw">summary</span>(fit))) 
+    }
+  }
+
+  ## estimate sd of year random effects
+  year_re &lt;-<span class="st"> </span>df0 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">filter</span>(condition <span class="op">!=</span><span class="st"> &quot;uncontested&quot;</span> <span class="op">&amp;</span><span class="st"> </span>set <span class="op">==</span><span class="st"> &quot;train&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">re =</span> <span class="kw">mean</span>(sth_pctdem <span class="op">-</span><span class="st"> </span>pred))
+  year_sd &lt;-<span class="st"> </span><span class="kw">sd</span>(year_re<span class="op">$</span>re)
+  resid_sd &lt;-<span class="st"> </span><span class="kw">sapply</span>(
+    sd_err[<span class="kw">names</span>(sd_err) <span class="op">!=</span><span class="st"> &quot;uncontested&quot;</span>], 
+    <span class="cf">function</span>(e) <span class="kw">sqrt</span>(e<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>year_sd<span class="op">^</span><span class="dv">2</span>)
+  )
+  
+  summary_stat_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+    <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">&quot;year_sd&quot;</span>, <span class="kw">paste0</span>(<span class="st">&quot;resid_sd_&quot;</span>, <span class="kw">names</span>(resid_sd))),
+    <span class="dt">value =</span> <span class="kw">c</span>(year_sd, <span class="kw">unlist</span>(resid_sd))
+  )
+  
+  ## this is a noisy estimate, where we generate a sample with year effect and residual noise
+  sample &lt;-<span class="st"> </span>df0 <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(set <span class="op">==</span><span class="st"> &#39;test&#39;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(
+      <span class="dt">pred_samp =</span> pred <span class="op">+</span><span class="st"> </span>
+<span class="st">        </span><span class="kw">ifelse</span>(
+          condition <span class="op">==</span><span class="st"> &quot;uncontested&quot;</span>, <span class="dv">0</span>,
+          <span class="kw">rnorm</span>(<span class="kw">n</span>(), <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span>resid_sd[condition]) <span class="op">+</span>
+<span class="st">            </span><span class="kw">rnorm</span>(<span class="dv">1</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span>year_sd)
+        )
+    ) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(race, sth, condition, pred, pred_samp)
+  
+  <span class="kw">return</span>(<span class="kw">new</span>(
+    <span class="st">&quot;FitResult&quot;</span>,
+    <span class="dt">pred=</span>df0[,<span class="kw">c</span>(<span class="st">&quot;sth&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;pred&quot;</span>)],
+    <span class="dt">coefs=</span><span class="kw">do.call</span>(rbind, coef_results),
+    <span class="dt">test_sample=</span>sample,
+    <span class="dt">holdout_year=</span><span class="kw">as.integer</span>(holdout_year),
+    <span class="dt">summary_stats=</span>summary_stat_df
+  ))
+}
+
+results_once &lt;-<span class="st"> </span><span class="kw">fit_once</span>(
+  vote_df, 
+  <span class="dv">2016</span>, 
+  conditions
+)</code></pre></div>
+<pre><code>## [1] &quot;uncontested Model&quot;
+## 
+## Call:
+## lm(formula = cond@formula, data = df0 %&gt;% filter(condition == 
+##     cond@name &amp; set == &quot;train&quot;))
+## 
+## Residuals:
+##        Min         1Q     Median         3Q        Max 
+## -5.980e-16 -5.980e-16  0.000e+00  0.000e+00  1.103e-13 
+## 
+## Coefficients:
+##                           Estimate Std. Error   t value Pr(&gt;|t|)    
+## (Intercept)              5.000e-01  2.207e-16 2.265e+15   &lt;2e-16 ***
+## sign(dem_is_uncontested) 5.000e-01  2.207e-16 2.265e+15   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.279e-15 on 570 degrees of freedom
+## Multiple R-squared:      1,  Adjusted R-squared:      1 
+## F-statistic: 5.132e+30 on 1 and 570 DF,  p-value: &lt; 2.2e-16
+## 
+## [1] &quot;previously_uncontested Model&quot;
+## 
+## Call:
+## lm(formula = cond@formula, data = df0 %&gt;% filter(condition == 
+##     cond@name &amp; set == &quot;train&quot;))
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.212129 -0.033724  0.001324  0.046809  0.181318 
+## 
+## Coefficients:
+##                                                          Estimate
+## (Intercept)                                               0.19135
+## dem_won_laggedTRUE                                        0.08741
+## incumbent_is_running                                     -0.06921
+## usc_pctdem                                                0.17552
+## usc_pctdem_statewide                                      0.38672
+## I(uspgov_pctdem_lagged - uspgov_pctdem_statewide_lagged)  0.49349
+## dem_won_laggedTRUE:incumbent_is_running                   0.12429
+##                                                          Std. Error
+## (Intercept)                                                 0.05758
+## dem_won_laggedTRUE                                          0.02075
+## incumbent_is_running                                        0.01417
+## usc_pctdem                                                  0.05105
+## usc_pctdem_statewide                                        0.11606
+## I(uspgov_pctdem_lagged - uspgov_pctdem_statewide_lagged)    0.05359
+## dem_won_laggedTRUE:incumbent_is_running                     0.02236
+##                                                          t value Pr(&gt;|t|)
+## (Intercept)                                                3.323 0.001062
+## dem_won_laggedTRUE                                         4.213 3.84e-05
+## incumbent_is_running                                      -4.886 2.14e-06
+## usc_pctdem                                                 3.438 0.000716
+## usc_pctdem_statewide                                       3.332 0.001030
+## I(uspgov_pctdem_lagged - uspgov_pctdem_statewide_lagged)   9.208  &lt; 2e-16
+## dem_won_laggedTRUE:incumbent_is_running                    5.559 8.80e-08
+##                                                             
+## (Intercept)                                              ** 
+## dem_won_laggedTRUE                                       ***
+## incumbent_is_running                                     ***
+## usc_pctdem                                               ***
+## usc_pctdem_statewide                                     ** 
+## I(uspgov_pctdem_lagged - uspgov_pctdem_statewide_lagged) ***
+## dem_won_laggedTRUE:incumbent_is_running                  ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.06574 on 196 degrees of freedom
+## Multiple R-squared:  0.871,  Adjusted R-squared:  0.8671 
+## F-statistic: 220.6 on 6 and 196 DF,  p-value: &lt; 2.2e-16
+## 
+## [1] &quot;contested Model&quot;
+## 
+## Call:
+## lm(formula = cond@formula, data = df0 %&gt;% filter(condition == 
+##     cond@name &amp; set == &quot;train&quot;))
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.171925 -0.040997  0.000342  0.038763  0.184274 
+## 
+## Coefficients:
+##                                                           Estimate
+## (Intercept)                                               0.088905
+## sth_pctdem_lagged                                         0.488134
+## incumbent_is_dem                                          0.059975
+## usc_pctdem                                                0.021814
+## usc_pctdem_statewide                                      0.325711
+## I(uspgov_pctdem_lagged - uspgov_pctdem_statewide_lagged)  0.330569
+## sth_pctdem_lagged:incumbent_is_running                   -0.011987
+##                                                          Std. Error
+## (Intercept)                                                0.038633
+## sth_pctdem_lagged                                          0.032938
+## incumbent_is_dem                                           0.004633
+## usc_pctdem                                                 0.030635
+## usc_pctdem_statewide                                       0.073762
+## I(uspgov_pctdem_lagged - uspgov_pctdem_statewide_lagged)   0.035356
+## sth_pctdem_lagged:incumbent_is_running                     0.014148
+##                                                          t value Pr(&gt;|t|)
+## (Intercept)                                                2.301   0.0218
+## sth_pctdem_lagged                                         14.820  &lt; 2e-16
+## incumbent_is_dem                                          12.945  &lt; 2e-16
+## usc_pctdem                                                 0.712   0.4768
+## usc_pctdem_statewide                                       4.416 1.27e-05
+## I(uspgov_pctdem_lagged - uspgov_pctdem_statewide_lagged)   9.350  &lt; 2e-16
+## sth_pctdem_lagged:incumbent_is_running                    -0.847   0.3973
+##                                                             
+## (Intercept)                                              *  
+## sth_pctdem_lagged                                        ***
+## incumbent_is_dem                                         ***
+## usc_pctdem                                                  
+## usc_pctdem_statewide                                     ***
+## I(uspgov_pctdem_lagged - uspgov_pctdem_statewide_lagged) ***
+## sth_pctdem_lagged:incumbent_is_running                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.05923 on 436 degrees of freedom
+## Multiple R-squared:  0.8763, Adjusted R-squared:  0.8746 
+## F-statistic: 514.9 on 6 and 436 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We’ve fit the model once, using 2016 as the holdout. Let’s examine the results.</p>
+<p>First, make sure the coefficients of the models make sense to you. They’re purposefully simple models, where we just estimate the correlation of State House results a bunch of other races, past and present.</p>
+<p><em>Contested Model:</em> All of the obvious culprits have positive correlations: the lagged STH results, incumbent party, USC results statewide, and lagged USP/GOV results from the district (relative to statewide). Interestingly, the interaction is insignificant: knowing that the incumbent is running doesn’t make the last election’s results any more pertinent.</p>
+<p><em>Uncontested Model:</em> Similarly, these results are what we expected. Notice that the coefficient of <code>incumbent_is_running</code> means that a Republican incumbent gets a 6.9 point boost, whereas <code>incumbent_is_running + dem_won_laggedTRUE:incumbent_is_running</code> means a Democratic incumbent gets a 5.5 point boost, so both are positive.</p>
+<p>Second, let’s plot the prediction.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">supplement_pred &lt;-<span class="st"> </span><span class="cf">function</span>(pred, holdout_year, <span class="dt">df0=</span>vote_df){
+  pred_supplemented &lt;-<span class="st"> </span>pred <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(
+    df0 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw">mutate</span>(<span class="dt">set =</span> <span class="kw">get_holdout_set</span>(., holdout_year)) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">select</span>(sth, year, race, condition, set, sth_pctdem),
+    <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;sth&quot;</span>, <span class="st">&quot;year&quot;</span>)
+  )
+  <span class="cf">if</span>(<span class="op">!</span><span class="kw">nrow</span>(pred) <span class="op">==</span><span class="st"> </span><span class="kw">nrow</span>(pred_supplemented)) <span class="kw">stop</span>(<span class="st">&quot;rows were duplicated&quot;</span>)
+  <span class="kw">return</span>(pred_supplemented)
+}
+
+supplement_pred_from_fit &lt;-<span class="st"> </span><span class="cf">function</span>(fr, <span class="dt">df0=</span>vote_df){
+  <span class="kw">supplement_pred</span>(fr<span class="op">@</span>pred, fr<span class="op">@</span>holdout_year, df0)
+}
+
+prediction_plot &lt;-<span class="st"> </span><span class="cf">function</span>(fr, condition_name){
+  <span class="cf">if</span>(<span class="op">!</span><span class="kw">is</span>(fr, <span class="st">&quot;FitResult&quot;</span>)) <span class="kw">stop</span>(<span class="st">&quot;fr must be of type FitResult&quot;</span>)
+  <span class="cf">if</span>(<span class="op">!</span>condition_name <span class="op">%in%</span><span class="st"> </span><span class="kw">unique</span>(fr<span class="op">@</span>coefs<span class="op">$</span>condition)) {
+    <span class="kw">stop</span>(<span class="st">&quot;condition doesn&#39;t match available conditions&quot;</span>)
+  }
+  <span class="kw">ggplot</span>(
+    fr <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw">supplement_pred_from_fit</span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">filter</span>(condition <span class="op">==</span><span class="st"> </span>condition_name),
+    <span class="kw">aes</span>(<span class="dt">x =</span> pred, <span class="dt">y =</span> sth_pctdem)
+  ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_abline</span>(<span class="dt">slope=</span><span class="dv">1</span>, <span class="dt">intercept=</span><span class="dv">0</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="fl">0.5</span>, <span class="dt">color =</span> <span class="st">&quot;grey50&quot;</span>)<span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="fl">0.5</span>, <span class="dt">color =</span> <span class="st">&quot;grey50&quot;</span>)<span class="op">+</span>
+<span class="st">    </span><span class="kw">facet_grid</span>(<span class="op">~</span>set) <span class="op">+</span>
+<span class="st">    </span><span class="kw">coord_fixed</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Predicted values of %s model, %s&quot;</span>, condition_name, fr<span class="op">@</span>holdout_year))
+}
+
+
+<span class="kw">prediction_plot</span>(results_once, <span class="st">&quot;contested&quot;</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/pred_plots-1.png" width="2100" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prediction_plot</span>(results_once, <span class="st">&quot;previously_uncontested&quot;</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/pred_plots-2.png" width="2100" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prediction_plot</span>(results_once, <span class="st">&quot;uncontested&quot;</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/pred_plots-3.png" width="2100" /></p>
+<p>Looks ok.</p>
+<p>Now, let’s bootstrap the races, still sticking to a single year.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setClass</span>(
+  ## BootstrapResult is like FitResult but dfs will have column `sim`
+  <span class="st">&quot;BootstrapResult&quot;</span>,
+  <span class="dt">slots=</span><span class="kw">c</span>(
+    <span class="dt">nboot=</span><span class="st">&quot;numeric&quot;</span>
+  ),
+  <span class="dt">contains=</span><span class="st">&quot;FitResult&quot;</span>  
+)
+
+rbind_slots &lt;-<span class="st"> </span><span class="cf">function</span>(obj_list, result_slot){
+  <span class="kw">bind_rows</span>(
+    <span class="kw">lapply</span>(obj_list, slot, result_slot),
+    <span class="dt">.id =</span> <span class="st">&quot;sim&quot;</span>
+  )
+}
+
+construct_bsresult &lt;-<span class="st"> </span><span class="cf">function</span>(fitresult_list){
+  nboot &lt;-<span class="st"> </span><span class="kw">length</span>(fitresult_list)
+  holdout_year &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">sapply</span>(fitresult_list, slot, <span class="st">&quot;holdout_year&quot;</span>))
+  bs &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;BootstrapResult&quot;</span>, <span class="dt">nboot=</span>nboot, <span class="dt">holdout_year=</span><span class="kw">as.integer</span>(holdout_year))
+  <span class="cf">for</span>(sl <span class="cf">in</span> <span class="kw">c</span>(<span class="st">&quot;pred&quot;</span>,<span class="st">&quot;coefs&quot;</span>,<span class="st">&quot;test_sample&quot;</span>)){
+    <span class="kw">slot</span>(bs, sl) &lt;-<span class="st"> </span><span class="kw">rbind_slots</span>(fitresult_list, sl)
+  }
+  <span class="kw">return</span>(bs)
+}
+
+bootstrap &lt;-<span class="st"> </span><span class="cf">function</span>(df0, holdout_year, conditions, <span class="dt">nboot=</span><span class="dv">500</span>, <span class="dt">verbose=</span><span class="ot">TRUE</span>, ...){
+  fitresult_list &lt;-<span class="st"> </span><span class="kw">list</span>()
+  years &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">seq</span>(<span class="dv">2004</span>, <span class="dv">2016</span>, <span class="dv">2</span>))
+  train_years &lt;-<span class="st"> </span>years[<span class="op">!</span>years <span class="op">%in%</span><span class="st"> </span>holdout_year]
+  n_train_years &lt;-<span class="st"> </span><span class="kw">length</span>(years)
+  df0 &lt;-<span class="st"> </span>df0 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.character</span>(year))
+  
+  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nboot){
+    bs_year_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">year =</span> <span class="kw">sample</span>(train_years, <span class="dt">replace=</span><span class="ot">TRUE</span>))
+    bsdf &lt;-<span class="st"> </span><span class="kw">rbind</span>(
+      bs_year_samp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(df0, <span class="dt">by =</span> <span class="st">&quot;year&quot;</span>),
+      df0 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">get_holdout_set</span>(., holdout_year) <span class="op">==</span><span class="st"> &quot;test&quot;</span>)
+    )
+    fitresult_list[[i]] &lt;-<span class="st"> </span><span class="kw">fit_once</span>(bsdf, holdout_year, conditions, <span class="dt">verbose=</span><span class="ot">FALSE</span>, ...)
+    <span class="cf">if</span>(verbose <span class="op">&amp;</span><span class="st"> </span>(i <span class="op">%%</span><span class="st"> </span><span class="dv">100</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) <span class="kw">print</span>(i)
+  }
+
+  <span class="kw">return</span>(
+    <span class="kw">construct_bsresult</span>(fitresult_list)
+  )
+}
+
+bs &lt;-<span class="st"> </span><span class="kw">bootstrap</span>(
+  vote_df, 
+  <span class="dv">2016</span>, 
+  conditions,
+  <span class="dt">verbose=</span><span class="ot">TRUE</span>
+)</code></pre></div>
+<pre><code>## [1] 100
+## [1] 200
+## [1] 300
+## [1] 400
+## [1] 500</code></pre>
+<p>Let’s see how we did. First, do the coefficients make sense?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coef_plot &lt;-<span class="st"> </span><span class="cf">function</span>(bs, <span class="dt">condition_name=</span><span class="st">&#39;contested&#39;</span>){
+  coef_df &lt;-<span class="st"> </span>bs<span class="op">@</span>coefs <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">filter</span>(condition <span class="op">==</span><span class="st"> </span>condition_name)
+  
+  <span class="kw">ggplot</span>(
+      coef_df, 
+      <span class="kw">aes</span>(<span class="dt">x=</span>term, <span class="dt">y=</span>estimate)
+  ) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.color =</span> <span class="ot">NA</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_sixtysix</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">vjust=</span><span class="fl">0.5</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylim</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(
+      <span class="kw">paste</span>(<span class="st">&quot;Coefficients of&quot;</span>, condition_name),
+      <span class="kw">paste</span>(<span class="st">&quot;Holdout:&quot;</span>, bs<span class="op">@</span>holdout_year)
+    )
+}
+
+<span class="kw">coef_plot</span>(bs, <span class="st">&#39;contested&#39;</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/coef_plots-1.png" width="2100" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef_plot</span>(bs, <span class="st">&#39;previously_uncontested&#39;</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/coef_plots-2.png" width="2100" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef_plot</span>(bs, <span class="st">&#39;uncontested&#39;</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/coef_plots-3.png" width="2100" /> Sure.</p>
+<p>How did the predictions perform? Let’s look at individual races.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">get_pred_with_true_results &lt;-<span class="st"> </span><span class="cf">function</span>(bs){
+  true_results &lt;-<span class="st"> </span>bs<span class="op">@</span>pred <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>bs<span class="op">@</span>holdout_year) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">supplement_pred</span>(bs<span class="op">@</span>holdout_year)
+  true_results
+}
+
+gg_race_pred &lt;-<span class="st"> </span><span class="cf">function</span>(bs){
+  holdout_year &lt;-<span class="st"> </span>bs<span class="op">@</span>holdout_year
+  
+  true_results &lt;-<span class="st"> </span><span class="kw">get_pred_with_true_results</span>(bs)
+    
+  race_order &lt;-<span class="st"> </span>bs<span class="op">@</span>test_sample <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">group_by</span>(race) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">m =</span> <span class="kw">mean</span>(pred_samp)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">with</span>(race[<span class="kw">order</span>(m)])
+
+  <span class="kw">ggplot</span>(
+    bs<span class="op">@</span>test_sample <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">race =</span> <span class="kw">factor</span>(race, <span class="dt">levels =</span> race_order)), 
+    <span class="kw">aes</span>(<span class="dt">x=</span>race, <span class="dt">y=</span>pred_samp)
+  ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="fl">0.5</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&#39;grey30&#39;</span>)<span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.colour =</span> <span class="ot">NA</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>)<span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>(
+      <span class="dt">data =</span> true_results,
+      <span class="kw">aes</span>(<span class="dt">y=</span>sth_pctdem),
+      <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>
+    ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_sixtysix</span>()<span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(
+      <span class="dt">panel.grid.major.x =</span> <span class="kw">element_blank</span>(),
+      <span class="dt">axis.text.x =</span> <span class="kw">element_blank</span>()
+    ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;race (sorted by predicted pct dem)&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_y_continuous</span>(<span class="st">&quot;pct dem&quot;</span>, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.25</span>))<span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="kw">paste</span>(<span class="st">&quot;Race-by-race predictions for&quot;</span>, holdout_year), <span class="st">&quot;Blue is actual results.&quot;</span>)
+}
+
+<span class="kw">gg_race_pred</span>(bs)</code></pre></div>
+<p><img src="04_model_files/figure-html/indiv_race_preds-1.png" width="2100" /> Looks ok. Nothing insane.</p>
+<div id="exercise-2-make-a-diagnostic-plot" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> Exercise 2: Make a diagnostic plot</h3>
+<p>Pause here, and make your own diagnostic plot of the results.</p>
+</div>
+<div id="more-diagnostics" class="section level3">
+<h3><span class="header-section-number">4.4.2</span> More diagnostics</h3>
+<p>Another way to look at the results is as a scatterplot of predicted versus actual results (we’ll only do this for the holdout).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg_race_scatter &lt;-<span class="st"> </span><span class="cf">function</span>(bs){
+  holdout_year &lt;-<span class="st"> </span>bs<span class="op">@</span>holdout_year
+  
+  true_results &lt;-<span class="st"> </span><span class="kw">get_pred_with_true_results</span>(bs)
+
+  <span class="kw">ggplot</span>(
+    bs<span class="op">@</span>test_sample <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw">group_by</span>(race, sth, condition) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">summarise</span>(
+        <span class="dt">ymean =</span> <span class="kw">mean</span>(pred_samp),
+        <span class="dt">ymin =</span> <span class="kw">quantile</span>(pred_samp, <span class="fl">0.025</span>),
+        <span class="dt">ymax =</span> <span class="kw">quantile</span>(pred_samp, <span class="fl">0.975</span>)
+      ) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">left_join</span>(true_results), 
+    <span class="kw">aes</span>(<span class="dt">x=</span>sth_pctdem, <span class="dt">y=</span>ymean)
+  ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_abline</span>(<span class="dt">slope=</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&#39;grey30&#39;</span>)<span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_linerange</span>(
+      <span class="kw">aes</span>(<span class="dt">ymin=</span>ymin, <span class="dt">ymax=</span>ymax, <span class="dt">group=</span>race)
+    )<span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>(
+      <span class="kw">aes</span>(<span class="dt">y=</span>ymean, <span class="dt">color=</span>condition)
+    ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_sixtysix</span>()<span class="op">+</span>
+<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;True Result&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_y_continuous</span>(<span class="st">&quot;Prediction&quot;</span>, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.25</span>))<span class="op">+</span>
+<span class="st">    </span><span class="kw">coord_fixed</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Race prediction intervals&quot;</span>, holdout_year)
+}
+
+<span class="kw">gg_race_scatter</span>(bs)</code></pre></div>
+<p><img src="04_model_files/figure-html/gg_race_scatter-1.png" width="2100" /></p>
+<p>How about the percentiles of the true results with respect to the predicted distribution? These should be uniform.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg_resid &lt;-<span class="st"> </span><span class="cf">function</span>(bs){
+  holdout_year &lt;-<span class="st"> </span>bs<span class="op">@</span>holdout_year
+  true_results &lt;-<span class="st"> </span><span class="kw">get_pred_with_true_results</span>(bs)
+  pctl &lt;-<span class="st"> </span>bs<span class="op">@</span>test_sample <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(condition <span class="op">!=</span><span class="st"> &quot;uncontested&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">left_join</span>(true_results) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>(race, sth, condition) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">pctl =</span> <span class="kw">mean</span>(sth_pctdem <span class="op">&gt;</span><span class="st"> </span>pred_samp))
+    
+  <span class="kw">ggplot</span>(pctl, <span class="kw">aes</span>(<span class="dt">x=</span>pctl, <span class="dt">fill =</span> condition)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.05</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_fill_manual</span>(
+      <span class="dt">values =</span> <span class="kw">c</span>(
+        <span class="dt">contested =</span> strong_green, 
+        <span class="dt">previously_uncontested =</span> strong_purple
+      )
+    ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_sixtysix</span>()
+}
+<span class="kw">gg_resid</span>(bs)</code></pre></div>
+<p><img src="04_model_files/figure-html/percentile_resid-1.png" width="2100" /></p>
+<p>Maybe they’re uniform. They’re not obviously bad (you <em>know it</em> when they’re obviously bad).</p>
+<p>What if we map them?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">map_residuals &lt;-<span class="st"> </span><span class="cf">function</span>(bs, cond_name, <span class="dt">df0=</span>vote_df){
+  holdout_year &lt;-<span class="st"> </span>bs<span class="op">@</span>holdout_year
+  sf_vintage &lt;-<span class="st"> </span>sth_vintage <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(year<span class="op">==</span>holdout_year) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">with</span>(vintage)
+  sf &lt;-<span class="st"> </span>sth_sf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(vintage <span class="op">==</span><span class="st"> </span>sf_vintage) 
+  
+  bs_pred &lt;-<span class="st"> </span>bs<span class="op">@</span>test_sample <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">group_by</span>(sth, race, condition) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise</span>(
+      <span class="dt">pred =</span> <span class="kw">mean</span>(pred)
+    ) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">left_join</span>(df0 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(race, sth_pctdem)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">resid =</span> sth_pctdem <span class="op">-</span><span class="st"> </span>pred)
+  
+  <span class="kw">ggplot</span>(
+    sf <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw">left_join</span>(bs_pred <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(condition <span class="op">==</span><span class="st"> </span>cond_name))
+  ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> pa_union) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>(
+      <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">size=</span><span class="kw">abs</span>(resid), <span class="dt">color=</span><span class="kw">ifelse</span>(resid <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;Dem&quot;</span>, <span class="st">&quot;Rep&quot;</span>))
+    ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_color_manual</span>(
+      <span class="dt">values=</span><span class="kw">c</span>(<span class="dt">Dem =</span> strong_blue, <span class="dt">Rep =</span> strong_red), 
+      <span class="dt">guide=</span><span class="ot">FALSE</span>
+    ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_size_area</span>(<span class="dt">guide =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_map_sixtysix</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(
+      <span class="kw">paste</span>(<span class="st">&quot;Residual Map for&quot;</span>, holdout_year,<span class="st">&quot;,&quot;</span>, cond_name,<span class="st">&quot;model&quot;</span>),
+      <span class="st">&quot;Blue means Dem overpredicted, Red means Rep&quot;</span>
+    )
+}
+
+<span class="kw">map_residuals</span>(bs, <span class="st">&quot;contested&quot;</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/residual_map-1.png" width="2100" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_residuals</span>(bs, <span class="st">&quot;previously_uncontested&quot;</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/residual_map-2.png" width="2100" /></p>
+<p>There’s a story here. Looks like we are systematically over-predicting the Dems in Philadelphia and Pittsburgh, and over-predicting Republicans in the immediate suburbs. We won’t raise the alarm yet, and will check out the results across years.</p>
+<p>Finally, what was our topline number?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pivotal_bs &lt;-<span class="st"> </span><span class="cf">function</span>(x, q){
+  mean_x &lt;-<span class="st"> </span><span class="kw">mean</span>(x)
+  q0 &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>q
+  raw_quantiles &lt;-<span class="st"> </span><span class="kw">quantile</span>(x, q0)
+  true_quantiles &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>mean_x <span class="op">-</span><span class="st"> </span>raw_quantiles
+  <span class="kw">names</span>(true_quantiles) &lt;-<span class="st"> </span>scales<span class="op">::</span><span class="kw">percent</span>(q)
+  <span class="kw">return</span>(true_quantiles)
+}
+
+gg_pred_hist &lt;-<span class="st"> </span><span class="cf">function</span>(bs, <span class="dt">true_line=</span><span class="ot">TRUE</span>, <span class="dt">df0=</span>vote_df){
+  holdout_year &lt;-<span class="st"> </span>bs<span class="op">@</span>holdout_year
+  <span class="kw">print</span>(<span class="st">&quot;bootstrapped predictions&quot;</span>)
+  pred_total &lt;-<span class="st"> </span>bs<span class="op">@</span>test_sample <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">group_by</span>(sim) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">n_dem_wins =</span> <span class="kw">sum</span>(pred_samp <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>()
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Total NA:&quot;</span>, <span class="kw">sum</span>(<span class="kw">is.na</span>(pred_total<span class="op">$</span>n_dem_wins))))
+  
+  pred_total &lt;-<span class="st"> </span>pred_total <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(n_dem_wins))
+  <span class="kw">print</span>(<span class="kw">mean</span>(pred_total<span class="op">$</span>n_dem_wins))
+  <span class="kw">print</span>(<span class="kw">pivotal_bs</span>(pred_total<span class="op">$</span>n_dem_wins, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.2</span>, <span class="fl">0.8</span>, <span class="fl">0.975</span>)))
+  
+  <span class="cf">if</span>(true_line){
+    <span class="kw">print</span>(<span class="st">&quot;actual results&quot;</span>)
+    true_dem_wins &lt;-<span class="st"> </span>df0[df0<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>holdout_year,] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">with</span>(<span class="kw">sum</span>(sth_pctdem <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>))
+    <span class="kw">print</span>(true_dem_wins)
+    gg_annotation &lt;-<span class="st"> </span><span class="cf">function</span>() 
+      <span class="kw">annotate</span>(
+        <span class="dt">geom=</span><span class="st">&quot;text&quot;</span>,
+        <span class="dt">x =</span> true_dem_wins,
+        <span class="dt">y =</span> <span class="dv">10</span>,
+        <span class="dt">angle =</span> <span class="dv">90</span>,
+        <span class="dt">hjust =</span> <span class="dv">0</span>,
+        <span class="dt">vjust =</span> <span class="fl">1.1</span>,
+        <span class="dt">label =</span> <span class="kw">paste</span>(<span class="st">&quot;True outcome =&quot;</span>, true_dem_wins)
+      )
+  } <span class="cf">else</span> {
+    true_dem_wins &lt;-<span class="st"> </span><span class="kw">numeric</span>(<span class="dv">0</span>)
+    gg_annotation &lt;-<span class="st"> </span>geom_blank
+  }
+  
+  <span class="kw">ggplot</span>(pred_total, <span class="kw">aes</span>(<span class="dt">x =</span> n_dem_wins, <span class="dt">fill =</span> n_dem_wins <span class="op">&lt;</span><span class="st"> </span><span class="fl">101.5</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> true_dem_wins) <span class="op">+</span>
+<span class="st">    </span><span class="kw">gg_annotation</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="kw">paste</span>(<span class="st">&quot;Predicted Democratic seats in&quot;</span>, holdout_year)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;N Democratic Seats&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;N Bootstrap Sims&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_sixtysix</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_fill_manual</span>(
+      <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">`</span><span class="dt">TRUE</span><span class="st">`</span>=strong_red, <span class="st">`</span><span class="dt">FALSE</span><span class="st">`</span> =<span class="st"> </span>strong_blue),
+      <span class="dt">guide =</span> <span class="ot">FALSE</span>
+    )
+}
+
+<span class="kw">gg_pred_hist</span>(bs)</code></pre></div>
+<pre><code>## [1] &quot;bootstrapped predictions&quot;
+## [1] &quot;Total NA: 0&quot;
+## [1] 83.842
+##   2.5%  20.0%  80.0%  97.5% 
+## 75.684 80.684 86.684 91.684 
+## [1] &quot;actual results&quot;
+## [1] 82</code></pre>
+<p><img src="04_model_files/figure-html/topline_hist-1.png" width="2100" /></p>
+<p>We predicted Democrats would win 84 out of 203 seats, with a 95% CI of [76,92]. They actually won 82. _sunglassesemoji_</p>
+</div>
+</div>
+<div id="results-for-all-years" class="section level2">
+<h2><span class="header-section-number">4.5</span> Results for all years</h2>
+<p>Ok, now let’s do the whole darn thing. We will run the same bootstrap above, but iterating through holding out each year.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bs_years &lt;-<span class="st"> </span><span class="kw">list</span>()
+<span class="cf">for</span>(holdout <span class="cf">in</span> <span class="kw">seq</span>(<span class="dv">2004</span>, <span class="dv">2016</span>, <span class="dv">2</span>)){
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;###&quot;</span>, holdout, <span class="st">&quot;###&quot;</span>))
+  bs_years[[<span class="kw">as.character</span>(holdout)]] &lt;-<span class="st"> </span><span class="kw">bootstrap</span>(
+    vote_df, 
+    holdout, 
+    conditions,
+    <span class="dt">verbose=</span><span class="ot">FALSE</span>
+  )
+}</code></pre></div>
+<pre><code>## [1] &quot;### 2004 ###&quot;
+## [1] &quot;### 2006 ###&quot;
+## [1] &quot;### 2008 ###&quot;
+## [1] &quot;### 2010 ###&quot;
+## [1] &quot;### 2012 ###&quot;
+## [1] &quot;### 2014 ###&quot;
+## [1] &quot;### 2016 ###&quot;</code></pre>
+<p>Let’s check the results!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(holdout <span class="cf">in</span> <span class="kw">seq</span>(<span class="dv">2004</span>, <span class="dv">2016</span>, <span class="dv">2</span>)){
+  <span class="kw">gg_pred_hist</span>(bs_years[[<span class="kw">as.character</span>(holdout)]]) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()
+}</code></pre></div>
+<pre><code>## [1] &quot;bootstrapped predictions&quot;
+## [1] &quot;Total NA: 0&quot;
+## [1] 95.972
+##    2.5%   20.0%   80.0%   97.5% 
+##  86.944  91.944  99.944 104.944 
+## [1] &quot;actual results&quot;
+## [1] 94</code></pre>
+<p><img src="04_model_files/figure-html/pred_histograms-1.png" width="2100" /></p>
+<pre><code>## [1] &quot;bootstrapped predictions&quot;
+## [1] &quot;Total NA: 0&quot;
+## [1] 102.502
+##    2.5%   20.0%   80.0%   97.5% 
+##  83.954  96.004 109.004 116.529 
+## [1] &quot;actual results&quot;
+## [1] 102</code></pre>
+<p><img src="04_model_files/figure-html/pred_histograms-2.png" width="2100" /></p>
+<pre><code>## [1] &quot;bootstrapped predictions&quot;
+## [1] &quot;Total NA: 1&quot;
+## [1] 114.2345
+##     2.5%    20.0%    80.0%    97.5% 
+## 100.4689 108.4689 118.4689 133.0189 
+## [1] &quot;actual results&quot;
+## [1] 104</code></pre>
+<p><img src="04_model_files/figure-html/pred_histograms-3.png" width="2100" /></p>
+<pre><code>## [1] &quot;bootstrapped predictions&quot;
+## [1] &quot;Total NA: 0&quot;
+## [1] 103.45
+##    2.5%   20.0%   80.0%   97.5% 
+##  96.375 100.900 105.900 109.900 
+## [1] &quot;actual results&quot;
+## [1] 91</code></pre>
+<p><img src="04_model_files/figure-html/pred_histograms-4.png" width="2100" /></p>
+<pre><code>## [1] &quot;bootstrapped predictions&quot;
+## [1] &quot;Total NA: 0&quot;
+## [1] 90.664
+##    2.5%   20.0%   80.0%   97.5% 
+##  82.803  87.328  94.328 101.853 
+## [1] &quot;actual results&quot;
+## [1] 92</code></pre>
+<p><img src="04_model_files/figure-html/pred_histograms-5.png" width="2100" /></p>
+<pre><code>## [1] &quot;bootstrapped predictions&quot;
+## [1] &quot;Total NA: 0&quot;
+## [1] 86.854
+##   2.5%  20.0%  80.0%  97.5% 
+## 77.708 82.708 90.708 98.233 
+## [1] &quot;actual results&quot;
+## [1] 84</code></pre>
+<p><img src="04_model_files/figure-html/pred_histograms-6.png" width="2100" /></p>
+<pre><code>## [1] &quot;bootstrapped predictions&quot;
+## [1] &quot;Total NA: 0&quot;
+## [1] 84.054
+##   2.5%  20.0%  80.0%  97.5% 
+## 76.583 81.108 87.108 91.633 
+## [1] &quot;actual results&quot;
+## [1] 82</code></pre>
+<p><img src="04_model_files/figure-html/pred_histograms-7.png" width="2100" /></p>
+<p>All of the years look okay… oof, except for 2010. That’s bad. We predicted a Democratic win of 103-100, and in actuality Republicans won 112-91.</p>
+<p>Look at the race level predictions that year:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gg_race_pred</span>(bs_years[[<span class="st">&#39;2010&#39;</span>]])</code></pre></div>
+<p><img src="04_model_files/figure-html/race_pred_2010-1.png" width="2100" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gg_race_scatter</span>(bs_years[[<span class="st">&#39;2010&#39;</span>]])</code></pre></div>
+<p><img src="04_model_files/figure-html/race_pred_2010-2.png" width="2100" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_residuals</span>(bs_years[[<span class="st">&#39;2010&#39;</span>]], <span class="st">&quot;contested&quot;</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/race_pred_2010-3.png" width="2100" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_residuals</span>(bs_years[[<span class="st">&#39;2010&#39;</span>]], <span class="st">&quot;previously_uncontested&quot;</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/race_pred_2010-4.png" width="2100" /> We aren’t getting any single race terribly wrong, but we systematically over-predict Democratic performance across the board. What especially hurts is the middle of the plot, where we predict 60-40 Democratic wins and Republicans won 60-40 instead.</p>
+<p>What happened?</p>
+<p>Let’s look at the coefficients of the models, by year.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coef_df &lt;-<span class="st"> </span><span class="kw">do.call</span>(
+  rbind,
+  <span class="kw">lapply</span>(
+    bs_years,
+    <span class="cf">function</span>(bs) {
+      bs<span class="op">@</span>coefs <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">        </span><span class="kw">group_by</span>(term, condition) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">        </span><span class="kw">summarise</span>(<span class="dt">estimate=</span><span class="kw">mean</span>(estimate)) <span class="op">%&gt;%</span>
+<span class="st">        </span><span class="kw">mutate</span>(<span class="dt">year =</span> bs<span class="op">@</span>holdout_year)
+    }
+  )
+)
+
+<span class="kw">ggplot</span>(
+  coef_df,
+  <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">interaction</span>(condition, term), <span class="dt">y=</span>estimate)
+) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> (year <span class="op">==</span><span class="st"> </span><span class="dv">2010</span>))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</code></pre></div>
+<p><img src="04_model_files/figure-html/gov_holdout-1.png" width="2100" /></p>
+<p>When we held out 2010, we estimated the single highest intercept (good for the Democrats), along with the lowest correlations of USC results and prior STH races. Then, when use those coefficients in 2010, a good year for Republicans, the model totall overshoots. Darn.</p>
+<p>So what do we do? We have a few options.</p>
+<ul>
+<li><p><strong>Do nothing.</strong> When we predict for 2018, 2010 will be in our training set, so we will have that coverage. Hopefully, 2018 won’t be an outlier given 2004-2016 the way 2010 was for 2004-2016. FiveThirtyEight projects a Democratic USC win in 2018, but not out of line of other results we’ve seen, in 2006 ad 2008.</p></li>
+<li><p><strong>Be Bayesian.</strong> Model the annual random effects and throw on a strong prior. This is my instinct, but I’m committed to being Frequentist for the workshop :)</p></li>
+<li><p><strong>Rejigger the formulas we use.</strong> While it’s a cardinal sin to retouch your model after evaluating a test set, we don’t have enough years to use best practices (ideally we would create a super-holdout of years that we never looked at until the very end. But I’m not willing to throw out years when we only have seven). If we do this, we need to be intellectually honest with ourselves, and be super duper careful not to overfit the model. I attempt to achieve this by limiting myself to specifications that would only be a priori obvious, and that use only as many or fewer degrees of freedom as what I’ve already fit.</p></li>
+</ul>
+<p>Let’s do option one. We won’t touch our model, and we’ll hope that since 2010 is in our training data now, 2018 won’t be a bad outlier.</p>
+<p>For completeness, let’s revisit the maps of residuals. Does it look like we systematically mis-predict a given region?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(bs <span class="cf">in</span> bs_years){
+  <span class="cf">for</span>(condname <span class="cf">in</span> <span class="kw">c</span>(<span class="st">&quot;contested&quot;</span>, <span class="st">&quot;previously_uncontested&quot;</span>)){
+    <span class="kw">map_residuals</span>(bs, condname) <span class="op">%&gt;%</span><span class="st"> </span>print
+  }
+}</code></pre></div>
+<p><img src="04_model_files/figure-html/maps-1.png" width="2100" /><img src="04_model_files/figure-html/maps-2.png" width="2100" /><img src="04_model_files/figure-html/maps-3.png" width="2100" /><img src="04_model_files/figure-html/maps-4.png" width="2100" /><img src="04_model_files/figure-html/maps-5.png" width="2100" /><img src="04_model_files/figure-html/maps-6.png" width="2100" /><img src="04_model_files/figure-html/maps-7.png" width="2100" /><img src="04_model_files/figure-html/maps-8.png" width="2100" /><img src="04_model_files/figure-html/maps-9.png" width="2100" /><img src="04_model_files/figure-html/maps-10.png" width="2100" /><img src="04_model_files/figure-html/maps-11.png" width="2100" /><img src="04_model_files/figure-html/maps-12.png" width="2100" /><img src="04_model_files/figure-html/maps-13.png" width="2100" /><img src="04_model_files/figure-html/maps-14.png" width="2100" /></p>
+<p>The biggest pattern is that we miss a bunch of races in a year all in the same way. It looks like maybe we also miss Philadelphia all in the same direction when we do (though notably, that’s not true in e.g. 2012).</p>
+<p>Done with the due diligence. Let’s predict!</p>
+</div>
+<div id="predicting-2018" class="section level2">
+<h2><span class="header-section-number">4.6</span> Predicting 2018</h2>
+<p>We’ll predict the 2018 election. We’ve already prepped the 2018 equivalent of <code>df</code> in <a href="03_rectangular_data.html">Prepping the Data for Analysis</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;outputs/df_2018.rda&quot;</span>)
+
+df_<span class="dv">2018</span> &lt;-<span class="st"> </span>df_<span class="dv">2018</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_cols</span>()
+df_<span class="dv">2018</span> &lt;-<span class="st"> </span><span class="kw">add_condition</span>(df_<span class="dv">2018</span>, conditions)
+vote_df &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(vote_df, df_<span class="dv">2018</span>)
+
+pred_<span class="dv">2018</span> &lt;-<span class="st"> </span><span class="kw">bootstrap</span>(
+  vote_df,
+  <span class="dt">holdout_year=</span><span class="dv">2018</span>,
+  <span class="dt">conditions=</span>conditions
+)</code></pre></div>
+<pre><code>## [1] 100
+## [1] 200
+## [1] 300
+## [1] 400
+## [1] 500</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gg_race_pred</span>(pred_<span class="dv">2018</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/2018-1.png" width="2100" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gg_pred_hist</span>(pred_<span class="dv">2018</span>, <span class="dt">true_line =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] &quot;bootstrapped predictions&quot;
+## [1] &quot;Total NA: 0&quot;
+## [1] 88.434
+##   2.5%  20.0%  80.0%  97.5% 
+## 76.868 83.868 93.068 97.868</code></pre>
+<p><img src="04_model_files/figure-html/2018-2.png" width="2100" /></p>
+<p>We predict Republicans to win the house 215-88, with a 95% CI on Dem seats of [76 - 97]. Republicans win the majority in 98.8% of bootstraps.</p>
+</div>
+<div id="fast-forward-to-today" class="section level2">
+<h2><span class="header-section-number">4.7</span> Fast forward to today</h2>
+<p>Ok, we’re not actually in October 2018. We know who actually won. How did these predictions do?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results_<span class="dv">2018</span> &lt;-<span class="st"> </span><span class="kw">read.csv</span>(
+  <span class="st">&quot;data/UnOfficial_11232018092637AM.csv&quot;</span>
+) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">vote_total =</span> <span class="kw">asnum</span>(<span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">,&quot;</span>,<span class="st">&quot;&quot;</span>,Votes)),
+    <span class="dt">sth =</span> <span class="kw">sprintf</span>(<span class="st">&quot;%03d&quot;</span>, <span class="kw">asnum</span>(<span class="kw">gsub</span>(<span class="st">&quot;^([0-9]+)[a-z].*&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, District.Name))),
+    <span class="dt">party =</span> <span class="kw">ifelse</span>(
+      Party.Name <span class="op">==</span><span class="st"> &quot;Democratic&quot;</span>, <span class="st">&quot;DEM&quot;</span>, 
+      <span class="kw">ifelse</span>(Party.Name <span class="op">==</span><span class="st"> &quot;Republican&quot;</span>, <span class="st">&quot;REP&quot;</span>, <span class="ot">NA</span>)
+    )
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">party =</span> <span class="kw">replace</span>(
+      party, 
+      Candidate.Name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(
+        <span class="st">&quot;BERNSTINE, AARON JOSEPH &quot;</span>,  <span class="st">&quot;SANKEY, THOMAS R III&quot;</span>, <span class="st">&quot;GABLER, MATTHEW M &quot;</span>), 
+      <span class="st">&quot;REP&quot;</span>
+    ),
+    <span class="dt">party =</span> <span class="kw">replace</span>(party, Candidate.Name <span class="op">==</span><span class="st"> &quot;LONGIETTI, MARK ALFRED &quot;</span>, <span class="st">&quot;DEM&quot;</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(party)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sth, party) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">votes =</span> <span class="kw">sum</span>(vote_total)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sth) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">sth_pctdem =</span> <span class="kw">sum</span>(votes <span class="op">*</span><span class="st"> </span>(party <span class="op">==</span><span class="st"> &quot;DEM&quot;</span>)) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(votes))
+
+vote_df &lt;-<span class="st"> </span><span class="kw">left_join</span>(vote_df, results_<span class="dv">2018</span>, <span class="dt">by =</span> <span class="st">&quot;sth&quot;</span>, <span class="dt">suffix =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>,<span class="st">&quot;.2018&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">sth_pctdem =</span> <span class="kw">ifelse</span>(
+      <span class="kw">substr</span>(race,<span class="dv">1</span>,<span class="dv">4</span>)<span class="op">==</span><span class="st">&quot;2018&quot;</span>, 
+      sth_pctdem.<span class="dv">2018</span>, 
+      sth_pctdem
+    )
+  ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>sth_pctdem.<span class="dv">2018</span>)
+  
+<span class="kw">gg_pred_hist</span>(pred_<span class="dv">2018</span>)</code></pre></div>
+<pre><code>## [1] &quot;bootstrapped predictions&quot;
+## [1] &quot;Total NA: 0&quot;
+## [1] 88.434
+##   2.5%  20.0%  80.0%  97.5% 
+## 76.868 83.868 93.068 97.868 
+## [1] &quot;actual results&quot;
+## [1] 93</code></pre>
+<p><img src="04_model_files/figure-html/evaluation-1.png" width="2100" /></p>
+<p>Democrats won 93 State House seats, right in the heart of our prediction.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gg_race_pred</span>(pred_<span class="dv">2018</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/seat_pred-1.png" width="2100" /></p>
+<p>These look ok, but we underpredicted Democrats in strong Republican districts. Democrats won a bunch of seats that we thought were going to be 60-40 Republican wins.</p>
+<p>Remember when I said you would know it when we saw a bad residual percentile histogram?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gg_resid</span>(pred_<span class="dv">2018</span>)</code></pre></div>
+<p><img src="04_model_files/figure-html/resid_2018-1.png" width="2100" /> We did well in the previously uncontested models, but systematically underpredicted the contested model. Such is the effect of year-level random effects.</p>
+<p>That’s it! I’m going to claim victory: the real result was right in the heart of our distribution.</p>
+<p>See you in 2020!</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="predicting-the-state-house-part-3.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["election_analytics_musa_workshop.pdf", "election_analytics_musa_workshop.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

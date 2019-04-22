@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 2 Predicting the State House, Part 2 | The PA Election Relational Database</title>
+  <meta name="description" content="Chapter 2 Predicting the State House, Part 2 | The PA Election Relational Database">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 2 Predicting the State House, Part 2 | The PA Election Relational Database" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Predicting the State House, Part 2 | The PA Election Relational Database" />
+  
+  
+  
+
+<meta name="author" content="Jonathan Tannen">
+
+
+<meta name="date" content="2019-03-20">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="predicting-the-state-house-part-3.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://github.com/PennMUSA/ElectionAnalyticsWorkshop">Election Analytics Penn MUSA Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Predicting the State House, Part 1</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#the-relational-database"><i class="fa fa-check"></i><b>1.1</b> The Relational Database</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="predicting-the-state-house-part-2.html"><a href="predicting-the-state-house-part-2.html"><i class="fa fa-check"></i><b>2</b> Predicting the State House, Part 2</a><ul>
+<li class="chapter" data-level="2.1" data-path="predicting-the-state-house-part-2.html"><a href="predicting-the-state-house-part-2.html#creating-geographies"><i class="fa fa-check"></i><b>2.1</b> Creating Geographies</a></li>
+<li class="chapter" data-level="2.2" data-path="predicting-the-state-house-part-2.html"><a href="predicting-the-state-house-part-2.html#year-to-year-crosswalks"><i class="fa fa-check"></i><b>2.2</b> Year to year crosswalks</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html"><i class="fa fa-check"></i><b>3</b> Predicting the State House, Part 3</a><ul>
+<li class="chapter" data-level="3.1" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#prepping-the-data-for-analysis"><i class="fa fa-check"></i><b>3.1</b> Prepping the data for analysis</a></li>
+<li class="chapter" data-level="3.2" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#thinking-ahead"><i class="fa fa-check"></i><b>3.2</b> Thinking ahead</a></li>
+<li class="chapter" data-level="3.3" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#the-model"><i class="fa fa-check"></i><b>3.3</b> The model</a></li>
+<li class="chapter" data-level="3.4" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#building-2018"><i class="fa fa-check"></i><b>3.4</b> Building 2018</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html"><i class="fa fa-check"></i><b>4</b> Predicting the State House</a><ul>
+<li class="chapter" data-level="4.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#the-pennsylvania-state-house"><i class="fa fa-check"></i><b>4.1</b> The Pennsylvania State House</a></li>
+<li class="chapter" data-level="4.2" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#overview-of-the-data"><i class="fa fa-check"></i><b>4.2</b> Overview of the Data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#exercise-1-fit-a-model"><i class="fa fa-check"></i><b>4.2.1</b> Exercise 1: Fit a Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#our-model"><i class="fa fa-check"></i><b>4.3</b> Our model</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#using-contemporaneous-data"><i class="fa fa-check"></i><b>4.3.1</b> Using contemporaneous data</a></li>
+<li class="chapter" data-level="4.3.2" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#the-model-1"><i class="fa fa-check"></i><b>4.3.2</b> The model</a></li>
+<li class="chapter" data-level="4.3.3" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#bootstrapping"><i class="fa fa-check"></i><b>4.3.3</b> Bootstrapping</a></li>
+<li class="chapter" data-level="4.3.4" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#crosswalking"><i class="fa fa-check"></i><b>4.3.4</b> Crosswalking</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#fitting-the-model"><i class="fa fa-check"></i><b>4.4</b> Fitting the model</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#exercise-2-make-a-diagnostic-plot"><i class="fa fa-check"></i><b>4.4.1</b> Exercise 2: Make a diagnostic plot</a></li>
+<li class="chapter" data-level="4.4.2" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#more-diagnostics"><i class="fa fa-check"></i><b>4.4.2</b> More diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#results-for-all-years"><i class="fa fa-check"></i><b>4.5</b> Results for all years</a></li>
+<li class="chapter" data-level="4.6" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#predicting-2018"><i class="fa fa-check"></i><b>4.6</b> Predicting 2018</a></li>
+<li class="chapter" data-level="4.7" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#fast-forward-to-today"><i class="fa fa-check"></i><b>4.7</b> Fast forward to today</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The PA Election Relational Database</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="predicting-the-state-house-part-2" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Predicting the State House, Part 2</h1>
+<div id="creating-geographies" class="section level2">
+<h2><span class="header-section-number">2.1</span> Creating Geographies</h2>
+<p>First, let’s load the <a href="link">Relational Database</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">source</span>(<span class="st">&quot;utils/util.R&quot;</span>)
+<span class="kw">load</span>(<span class="st">&quot;data/relational_db.rda&quot;</span>)</code></pre></div>
+<p>The <code>results</code> dataframe contains precinct-level results. For our model, we are going to need to compare these results from year to year (for example, to use last election’s results to predict this one). <strong>This can be a problem.</strong> Districts can, and do, change from year to year. There are two ways this can happen, one measurable and one not.</p>
+<p>First, the measurable: the state legislature passed new boundaries following the 2010 US Census. Thus, the districts from 2010 and before are completely different from those 2014 and after. The middle year, 2012, was particularly complicated. The Supreme Court had struck down the State House (STH) and State Senate (STS) boundaries, but allowed the US Congress (USC) boundaries; that election used the pre-2012 boundaries for state elections, post-2012 boundaries for USC. And then in 2018, of course, the PA Supreme Court redrew the USC boundaries, but not the state ones.</p>
+<p>Here’s a table of elections to vintage of districts:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Election</th>
+<th>State Boundaries</th>
+<th>USC Boundaries</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2010 and before</td>
+<td>pre-2012</td>
+<td>pre-2012</td>
+</tr>
+<tr class="even">
+<td>2012</td>
+<td>pre-2012</td>
+<td>post-2012</td>
+</tr>
+<tr class="odd">
+<td>2014-2016</td>
+<td>post-2012</td>
+<td>post-2012</td>
+</tr>
+<tr class="even">
+<td>2018</td>
+<td>post-2012</td>
+<td>2018</td>
+</tr>
+</tbody>
+</table>
+<p>But that’s all measurable. We can (and will) use GIS to create crosswalks from one to the other.</p>
+<p>More pernicious is that municipalities seem to arbitrarily change the names and boundaries of their precincts. So precinct 1 in a township in 2004 possibly has zero overlap with that precinct in 2006. Ideally, we would have a shapefile of the precincts and could map them out. But we don’t. As far as I can tell, the only requirement for municipalities is to provide pdfs or even textual descriptions of their new precincts (e.g. &quot;South of Pine Street, down to Maple St.&quot;). After gallantly downloading a few dozen pdfs, I gave up on attempts to map this out.</p>
+<p>(Aside: There’s a <a href="https://github.com/nvelsko/election-geodata">great project</a> to collect and create shapefiles for all precincts used in the 2016 election, but even that would only be for a single year, and not the full set of precincts we need.)</p>
+<p>The table <code>precincts_to_districts</code> contains a matching of each precinct and what STH, STS, and USC districts they voted for in a given election. This is pulled entirely from the results table; there’s no GIS used.</p>
+<p>For example, here are precinct ids that changed State House districts between 2014 and 2016. Since the STH districts didn’t change that year, the only explanation is that the precinct boundaries are in totally new places. Four precincts in Delaware County appear to have swapped Congressional and State House districts. This could be an actual change in the map, a data error, who knows.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inner_join</span>(
+  precincts_to_districts <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">filter</span>(election <span class="op">==</span><span class="st"> &quot;2014 G&quot;</span>),
+  precincts_to_districts <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">filter</span>(election <span class="op">==</span><span class="st"> &quot;2016 G&quot;</span>),
+  <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&#39;county_code_.&#39;</span>, <span class="st">&#39;precinct_code&#39;</span>, <span class="st">&#39;vtd_code&#39;</span>)
+) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(sth.x <span class="op">!=</span><span class="st"> </span>sth.y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</code></pre></div>
+<pre><code>##   election.x county_code_. precinct_code vtd_code cofips.x usc.x sts.x
+## 1     2014 G            23          3350     3370      045    01   026
+## 2     2014 G            23          3380     3400      045    01   026
+## 3     2014 G            23          3470     3490      045    07   026
+## 4     2014 G            23          3510     3530      045    07   026
+##   sth.x election.y cofips.y usc.y sts.y sth.y
+## 1   164     2016 G      045    07   026   163
+## 2   164     2016 G      045    07   026   163
+## 3   163     2016 G      045    01   026   164
+## 4   163     2016 G      045    01   026   164</code></pre>
+<p>The one thing that I do trust is the county and STH, STS, and USC boundaries. So we’ll use those as our anchor. In other words, if precinct code 3350 voted for Congressional District 1 in 2014, and for CD 7 in 2016, we’ll assume that the boundaries moved, and not that the same people voted for different districts.</p>
+<p>So let’s create our own geographies. The idea is that we will identify unique combinations of STH, STS, USC, and county boundaries using shapefiles. We can then confidently map the precinct results to them, because we know which STH, STS, and USC each precinct voted for in a given election. These geographies will thus be larger than precincts, but smaller than STH boundaries (potentially equal to, if an STH is entirely contained withing STS, USC, and county). I call these, imaginatively, <code>geographies</code>.</p>
+<p>We will need four vintages of these: pre-2012, 2012, post-2012, and 2018 (see the table above). Let’s load the shapefiles, and calculate the intersections of the four geometries:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Warning, I haphazardly move between sf and sp packages, 
+## based on my preferred function.
+<span class="kw">library</span>(sf)
+
+<span class="kw">library</span>(rgeos)
+<span class="kw">library</span>(rgdal)
+<span class="kw">library</span>(sp)
+
+sth_pre2012 &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/state_house/tigris_lower_house_2011.shp&quot;</span>, <span class="dt">quiet=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sth =</span> SLDLST)
+sth_post2012 &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/state_house/tigris_lower_house_2015.shp&quot;</span>, <span class="dt">quiet=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sth =</span> SLDLST)
+sts_pre2012 &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/state_senate/tigris_upper_house_2011.shp&quot;</span>, <span class="dt">quiet=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sts =</span> SLDUST)
+sts_post2012 &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/state_senate/tigris_upper_house_2015.shp&quot;</span>, <span class="dt">quiet=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sts =</span> SLDUST)
+usc_pre2012 &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/congress/tigris_usc_2011.shp&quot;</span>, <span class="dt">quiet=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">usc =</span> CD111FP)
+usc_post2012 &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/congress/tigris_usc_2015.shp&quot;</span>, <span class="dt">quiet=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">usc =</span> CD114FP)
+usc_<span class="dv">2018</span> &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/congress/supcourt_usc_2018.shp&quot;</span>, <span class="dt">quiet=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">usc =</span> DISTRICT)
+counties &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/census/tigris_counties_2015.shp&quot;</span>, <span class="dt">quiet=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cofips =</span> COUNTYFP)
+
+
+## some helper functions
+get_sp_id &lt;-<span class="st"> </span><span class="cf">function</span>(s) <span class="kw">sapply</span>(s<span class="op">@</span>polygons, slot, <span class="st">&quot;ID&quot;</span>)
+
+gInt_byid &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, <span class="dt">sep=</span><span class="st">&quot;_&quot;</span>){
+  int &lt;-<span class="st"> </span><span class="kw">gIntersection</span>(x, y, <span class="dt">byid=</span><span class="ot">TRUE</span>, <span class="dt">drop_lower_td=</span><span class="ot">TRUE</span>)
+  int &lt;-<span class="st"> </span><span class="kw">gBuffer</span>(int, <span class="dt">byid=</span><span class="ot">TRUE</span>, <span class="dt">width=</span><span class="dv">0</span>)
+  int &lt;-<span class="st"> </span><span class="kw">spChFIDs</span>(int, <span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">s&quot;</span>, sep, <span class="kw">get_sp_id</span>(int)))
+  <span class="kw">return</span>(int)
+}
+
+sf_to_sp &lt;-<span class="st"> </span><span class="cf">function</span>(sf, idcol){
+  sf &lt;-<span class="st"> </span><span class="kw">as</span>(sf, <span class="st">&quot;Spatial&quot;</span>)
+  sf &lt;-<span class="st"> </span><span class="kw">spChFIDs</span>(sf, <span class="kw">as.character</span>(sf<span class="op">@</span>data[,idcol]))
+  <span class="kw">return</span>(sf)
+}
+
+
+get_intersection &lt;-<span class="st"> </span><span class="cf">function</span>(sth, sts, usc, counties, vintage){
+  ## I find the sf intersection functions hard to work with, so we&#39;ll use sp
+  sth &lt;-<span class="st"> </span><span class="kw">sf_to_sp</span>(sth, <span class="st">&#39;sth&#39;</span>) 
+  sts &lt;-<span class="st"> </span><span class="kw">sf_to_sp</span>(sts, <span class="st">&#39;sts&#39;</span>)
+  usc &lt;-<span class="st"> </span><span class="kw">sf_to_sp</span>(usc, <span class="st">&#39;usc&#39;</span>)
+  counties &lt;-<span class="st"> </span><span class="kw">sf_to_sp</span>(counties, <span class="st">&#39;cofips&#39;</span>)
+  
+  sth_sts &lt;-<span class="st"> </span><span class="kw">gInt_byid</span>(sth, sts)
+  sth_sts_usc &lt;-<span class="st"> </span><span class="kw">gInt_byid</span>(sth_sts, usc)
+  sth_sts_usc_co &lt;-<span class="st"> </span><span class="kw">gInt_byid</span>(sth_sts_usc, counties)
+  sth_sts_usc_co &lt;-<span class="st"> </span><span class="kw">spChFIDs</span>(
+    sth_sts_usc_co, 
+    <span class="kw">paste0</span>(vintage, <span class="st">&quot;_&quot;</span>, <span class="kw">row.names</span>(sth_sts_usc_co))
+  )
+  
+  id_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">GEOID =</span> <span class="kw">row.names</span>(sth_sts_usc_co)) <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">    </span><span class="kw">separate</span>(
+      GEOID, 
+      <span class="dt">into=</span><span class="kw">c</span>(<span class="st">&#39;vintage&#39;</span>, <span class="st">&#39;sth&#39;</span>, <span class="st">&#39;sts&#39;</span>, <span class="st">&#39;usc&#39;</span>,<span class="st">&#39;cofips&#39;</span>), 
+      <span class="dt">sep=</span><span class="st">&quot;_&quot;</span>, 
+      <span class="dt">remove=</span><span class="ot">FALSE</span>
+    )
+  
+  sth_sts_usc_co &lt;-<span class="st"> </span><span class="kw">SpatialPolygonsDataFrame</span>(
+    sth_sts_usc_co, 
+    id_df,
+    <span class="dt">match.ID=</span><span class="ot">FALSE</span>
+  )
+
+  sth_sts_usc_co &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(sth_sts_usc_co)
+  <span class="kw">return</span>(sth_sts_usc_co)
+}
+
+## get and store the geographies
+geographies &lt;-<span class="st"> </span><span class="kw">list</span>()
+geographies[[<span class="st">&#39;pre2012&#39;</span>]] &lt;-<span class="st"> </span><span class="kw">get_intersection</span>(
+  sth_pre2012, sts_pre2012, usc_pre2012, counties, <span class="st">&quot;pre2012&quot;</span>
+)
+  
+geographies[[<span class="st">&#39;2012&#39;</span>]] &lt;-<span class="st"> </span><span class="kw">get_intersection</span>(
+  sth_pre2012, sts_pre2012, usc_post2012, counties, <span class="st">&quot;2012&quot;</span>
+)
+
+geographies[[<span class="st">&#39;post2012&#39;</span>]] &lt;-<span class="st"> </span><span class="kw">get_intersection</span>(
+  sth_post2012, sts_post2012, usc_post2012, counties, <span class="st">&quot;post2012&quot;</span>
+)
+
+geographies[[<span class="st">&#39;2018&#39;</span>]] &lt;-<span class="st"> </span><span class="kw">get_intersection</span>(
+  sth_post2012, sts_post2012, usc_<span class="dv">2018</span>, counties, <span class="st">&quot;2018&quot;</span>
+)
+
+## create a single table to rule them all
+geographies &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, geographies)
+
+## one useful table matching years to their vintage
+year_to_geo_vintage &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="dt">year =</span> <span class="kw">as.character</span>(<span class="kw">seq</span>(<span class="dv">2002</span>, <span class="dv">2018</span>, <span class="dv">2</span>)),
+  <span class="dt">vintage =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;pre2012&quot;</span>, <span class="dv">5</span>), <span class="st">&quot;2012&quot;</span>, <span class="kw">rep</span>(<span class="st">&quot;post2012&quot;</span>, <span class="dv">2</span>), <span class="st">&quot;2018&quot;</span>),
+  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>
+)</code></pre></div>
+<p>It’s worth noting that <code>geographies</code> are weird. They are wildly different sizes, and in general represent vastly different populations. One geography might be an entire state house district (if it’s nested within a state senate, congressional, and county boundary). Another might be a tiny sliver with no population, where a nub of one district crosses into a different county. We’ll need to keep this in mind when we model them later.</p>
+<p>For example, here are the 2014-2016 geographies for Philadelphia:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(
+  geographies <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(vintage <span class="op">==</span><span class="st"> &#39;post2012&#39;</span> <span class="op">&amp;</span><span class="st"> </span>cofips <span class="op">==</span><span class="st"> </span><span class="dv">101</span>)
+) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_sf</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_map_sixtysix</span>()</code></pre></div>
+<p><img src="02_geographies_files/figure-html/geography_inspection-1.png" width="2100" /></p>
+<p>To be able to ignore precincts forever hereafter, let’s aggregate the results from precincts to geographies.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tmp_result_list &lt;-<span class="st"> </span><span class="kw">list</span>()
+
+<span class="cf">for</span>(year <span class="cf">in</span> <span class="kw">seq</span>(<span class="dv">2002</span>, <span class="dv">2016</span>, <span class="dv">2</span>)){
+  vintage &lt;-<span class="st"> </span>year_to_geo_vintage<span class="op">$</span>vintage[year_to_geo_vintage<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>year]
+  geo &lt;-<span class="st"> </span>geographies[geographies<span class="op">$</span>vintage <span class="op">==</span><span class="st"> </span>vintage,] <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>geometry)
+  
+  tmp_result &lt;-<span class="st"> </span>results <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">filter</span>(<span class="kw">substr</span>(race, <span class="dv">1</span>, <span class="dv">4</span>) <span class="op">==</span><span class="st"> </span>year) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">left_join</span>(races <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(race, election)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">left_join</span>(precincts_to_districts) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">left_join</span>(geo) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>(race, candidate, party, cofips, usc, sts, sth) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">vote_total =</span> <span class="kw">sum</span>(vote_total)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>() <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(
+      <span class="dt">GEOID =</span> <span class="kw">paste</span>(vintage, sth, sts, usc, cofips, <span class="dt">sep=</span><span class="st">&quot;_&quot;</span>)
+    )
+  
+  tmp_result_list[[<span class="kw">as.character</span>(year)]] &lt;-<span class="st"> </span>tmp_result
+}
+
+geography_results &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(tmp_result_list)
+
+<span class="kw">head</span>(geography_results)</code></pre></div>
+<pre><code>## # A tibble: 6 x 9
+##   race     candidate   party cofips usc   sts   sth   vote_total GEOID    
+##   &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;    
+## 1 2002 G ~ ED RENDELL~ DEM   001    19    033   091         5393 pre2012_~
+## 2 2002 G ~ ED RENDELL~ DEM   001    19    033   193         2339 pre2012_~
+## 3 2002 G ~ ED RENDELL~ DEM   003    04    037   016          698 pre2012_~
+## 4 2002 G ~ ED RENDELL~ DEM   003    04    037   027          876 pre2012_~
+## 5 2002 G ~ ED RENDELL~ DEM   003    04    037   044         2024 pre2012_~
+## 6 2002 G ~ ED RENDELL~ DEM   003    04    038   024          503 pre2012_~</code></pre>
+<p>Let’s do a quick check to make sure we didn’t duplicate any votes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">usp_<span class="dv">2016</span> &lt;-<span class="st"> &quot;2016 G USP USP-PA&quot;</span>
+
+new_results &lt;-<span class="st"> </span>geography_results <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(race <span class="op">==</span><span class="st"> </span>usp_<span class="dv">2016</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(candidate) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">new_votes =</span> <span class="kw">sum</span>(vote_total)) 
+
+old_results &lt;-<span class="st"> </span>results <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(race <span class="op">==</span><span class="st"> </span>usp_<span class="dv">2016</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(candidate) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">old_votes =</span> <span class="kw">sum</span>(vote_total))
+
+<span class="kw">left_join</span>(new_results, old_results)</code></pre></div>
+<pre><code>## # A tibble: 5 x 3
+##   candidate              new_votes old_votes
+##   &lt;chr&gt;                      &lt;dbl&gt;     &lt;dbl&gt;
+## 1 DARRELL L CASTLE (USP)     21566     21566
+## 2 DONALD J TRUMP (USP)     2970378   2970378
+## 3 GARY E JOHNSON (USP)      146659    146659
+## 4 HILLARY CLINTON (USP)    2925758   2925758
+## 5 JILL STEIN (USP)           49935     49935</code></pre>
+<p>Yep, Donald Trump still won.</p>
+</div>
+<div id="year-to-year-crosswalks" class="section level2">
+<h2><span class="header-section-number">2.2</span> Year to year crosswalks</h2>
+<p>We’re going to want to compare the results from one year to the next, so we need to map vintages of the geographies to each other. In order to do that, let’s build a crosswalk. People often use areal crosswalks, but we’ll do one better with population-weighted crosswalks.</p>
+<p>The strategy is to create the geographic intersections of geographies <code>x</code> and <code>y</code>, use Census Blocks to calculate the population in each intersection, and then apportion votes in <code>x</code> based on the fraction of its population that overlaps with <code>y</code>. We’ll use blocks from the 2010 Census. Using populations from a single year won’t accurately weight places where population are changing, but will provide a darn good first order approximation. (You could imagine being even better, weighting by voting age population, or even downloading the voter file and weighting by voters).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">block_pops &lt;-<span class="st"> </span><span class="kw">read_csv</span>(
+  <span class="st">&quot;data/census/block10_centroid_pops.csv&quot;</span>, 
+  <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">GEOID10 =</span> <span class="kw">col_character</span>())
+) 
+
+## get rid of NA pop blocks. (I have no idea what these are, but they have 0 ALAND)
+block_pops <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">is.na</span>(pop10))</code></pre></div>
+<pre><code>## # A tibble: 7 x 9
+##   STATEFP10 COUNTYFP10 TRACTCE10 BLOCKCE10 GEOID10 pop10 ALAND10 INTPTLAT10
+##       &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;   &lt;int&gt;   &lt;int&gt;      &lt;dbl&gt;
+## 1        42 049        990000            2 420499~    NA       0       42.2
+## 2        42 049        990000            6 420499~    NA       0       42.2
+## 3        42 049        990000            1 420499~    NA       0       42.3
+## 4        42 049        990000            3 420499~    NA       0       42.2
+## 5        42 049        990000            4 420499~    NA       0       42.1
+## 6        42 049        012400            1 420490~    NA       0       42.1
+## 7        42 049        990000            5 420499~    NA       0       42.2
+## # ... with 1 more variable: INTPTLON10 &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">block_pops &lt;-<span class="st"> </span>block_pops <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(pop10))
+
+block_cents &lt;-<span class="st"> </span><span class="kw">SpatialPointsDataFrame</span>(
+  <span class="dt">coords=</span>block_pops[,<span class="kw">c</span>(<span class="st">&#39;INTPTLON10&#39;</span>,<span class="st">&#39;INTPTLAT10&#39;</span>)],
+  <span class="dt">data=</span>block_pops,
+  <span class="dt">coords.nrs=</span><span class="kw">match</span>(<span class="kw">c</span>(<span class="st">&#39;INTPTLON10&#39;</span>,<span class="st">&#39;INTPTLAT10&#39;</span>), <span class="kw">names</span>(block_pops)),
+  <span class="dt">proj4string=</span><span class="kw">CRS</span>(<span class="st">&quot;+init=epsg:4326&quot;</span>) 
+) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>st_as_sf <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">st_crs</span>(geographies))
+  
+create_crosswalk &lt;-<span class="st"> </span><span class="cf">function</span>(
+  x, 
+  y, 
+  <span class="dt">blocks=</span>block_cents, 
+  <span class="dt">xid=</span><span class="st">&#39;GEOID&#39;</span>, 
+  <span class="dt">yid=</span><span class="st">&#39;GEOID&#39;</span>
+){
+  x &lt;-<span class="st"> </span><span class="kw">sf_to_sp</span>(x, xid) 
+  y &lt;-<span class="st"> </span><span class="kw">sf_to_sp</span>(y, yid)
+
+  id_sep &lt;-<span class="st"> &quot;:&quot;</span>
+  int &lt;-<span class="st"> </span><span class="kw">gInt_byid</span>(x, y, id_sep)
+  blocks_to_int &lt;-<span class="st"> </span>blocks <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as</span>(<span class="st">&quot;Spatial&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">over</span>(int)
+  
+  <span class="co"># Provide a sanity check that all blocks got mapped.</span>
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;We lost&quot;</span>, <span class="kw">sum</span>(<span class="kw">is.na</span>(blocks_to_int)), <span class="st">&quot;blocks.&quot;</span>))
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;We lost&quot;</span>, <span class="kw">sum</span>(blocks<span class="op">$</span>pop10[<span class="kw">is.na</span>(blocks_to_int)]), <span class="st">&quot;people.&quot;</span>))
+  
+  crosswalk &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+    <span class="dt">int_num =</span> blocks_to_int,
+    <span class="dt">pop =</span> blocks<span class="op">$</span>pop10
+  ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">int_id =</span> <span class="kw">get_sp_id</span>(int)[int_num]) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>(int_id) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>() <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">separate</span>(int_id, <span class="dt">into=</span><span class="kw">c</span>(<span class="st">&quot;xid&quot;</span>, <span class="st">&quot;yid&quot;</span>), <span class="dt">sep=</span>id_sep) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>(xid) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">frac_of_x =</span> pop <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(pop)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>(yid) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">frac_of_y =</span> pop <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(pop))
+  
+  ## check that nothing got duplicated/lost.
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Pop of blocks:&quot;</span>, <span class="kw">sum</span>(blocks<span class="op">$</span>pop10)))
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Pop of cw:    &quot;</span>, <span class="kw">with</span>(crosswalk, <span class="kw">sum</span>(crosswalk<span class="op">$</span>pop))))
+  
+  <span class="kw">return</span>(crosswalk)
+}
+
+crosswalks &lt;-<span class="st"> </span><span class="kw">list</span>()
+
+<span class="cf">for</span>(
+  vintage_pair <span class="cf">in</span> <span class="kw">c</span>(
+    <span class="st">&quot;pre2012,2012&quot;</span>, <span class="st">&quot;pre2012,post2012&quot;</span>, <span class="st">&quot;2012,post2012&quot;</span>, <span class="st">&quot;post2012,2018&quot;</span>
+  )
+){
+  <span class="kw">print</span>(vintage_pair)
+  vintages &lt;-<span class="st"> </span><span class="kw">strsplit</span>(vintage_pair, <span class="st">&quot;,&quot;</span>)[[<span class="dv">1</span>]]
+  crosswalks[[vintage_pair]] &lt;-<span class="st"> </span><span class="kw">create_crosswalk</span>(
+    geographies <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(vintage <span class="op">==</span><span class="st"> </span>vintages[<span class="dv">1</span>]), 
+    geographies <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(vintage <span class="op">==</span><span class="st"> </span>vintages[<span class="dv">2</span>])
+  )
+}</code></pre></div>
+<pre><code>## [1] &quot;pre2012,2012&quot;
+## [1] &quot;We lost 2 blocks.&quot;
+## [1] &quot;We lost 0 people.&quot;
+## [1] &quot;Pop of blocks: 12702379&quot;
+## [1] &quot;Pop of cw:     12702379&quot;
+## [1] &quot;pre2012,post2012&quot;
+## [1] &quot;We lost 2 blocks.&quot;
+## [1] &quot;We lost 0 people.&quot;
+## [1] &quot;Pop of blocks: 12702379&quot;
+## [1] &quot;Pop of cw:     12702379&quot;
+## [1] &quot;2012,post2012&quot;
+## [1] &quot;We lost 0 blocks.&quot;
+## [1] &quot;We lost 0 people.&quot;
+## [1] &quot;Pop of blocks: 12702379&quot;
+## [1] &quot;Pop of cw:     12702379&quot;
+## [1] &quot;post2012,2018&quot;
+## [1] &quot;We lost 0 blocks.&quot;
+## [1] &quot;We lost 0 people.&quot;
+## [1] &quot;Pop of blocks: 12702379&quot;
+## [1] &quot;Pop of cw:     12702379&quot;</code></pre>
+<p>Here’s an example of how to use the crosswalk. Suppose we wanted to map the results in 2012 to the geographies in 2014. We want to assign to the 2014 boundaries the weighted average of the results from 2012:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">geography_results <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">inner_join</span>(
+    races <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(election <span class="op">==</span><span class="st"> &#39;2012 G&#39;</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(
+    crosswalks[[<span class="st">&quot;2012,post2012&quot;</span>]], 
+    <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;GEOID&quot;</span> =<span class="st"> &quot;xid&quot;</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(election, yid, office, party) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">vote_total =</span> <span class="kw">sum</span>(vote_total <span class="op">*</span><span class="st"> </span>frac_of_x)
+  )</code></pre></div>
+<pre><code>## # A tibble: 7,185 x 5
+## # Groups:   election, yid, office [?]
+##    election yid                     office party vote_total
+##    &lt;chr&gt;    &lt;chr&gt;                   &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
+##  1 2012 G   post2012_001_049_03_049 STH    DEM       15907.
+##  2 2012 G   post2012_001_049_03_049 STH    OTH           0 
+##  3 2012 G   post2012_001_049_03_049 STS    DEM       13708.
+##  4 2012 G   post2012_001_049_03_049 STS    OTH           0 
+##  5 2012 G   post2012_001_049_03_049 STS    REP        4480.
+##  6 2012 G   post2012_001_049_03_049 USC    DEM       12831.
+##  7 2012 G   post2012_001_049_03_049 USC    IND         909.
+##  8 2012 G   post2012_001_049_03_049 USC    OTH           0 
+##  9 2012 G   post2012_001_049_03_049 USC    REP        4371.
+## 10 2012 G   post2012_001_049_03_049 USP    DEM       14046.
+## # ... with 7,175 more rows</code></pre>
+<p>Finally, let’s use the crosswalks to add a quick feature to <code>geographies</code>: the 2010 population. (This doesn’t actually require the crosswalks–we could just map the blocks to a single time period–but since we already have them…)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">get_pop_from_cw &lt;-<span class="st"> </span><span class="cf">function</span>(vintage_pair, vintage){
+  vintage_split &lt;-<span class="st"> </span><span class="kw">str_split</span>(vintage_pair, <span class="st">&quot;,&quot;</span>)[[<span class="dv">1</span>]]
+  x_or_y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;xid&quot;</span>, <span class="st">&quot;yid&quot;</span>)[<span class="kw">which</span>(vintage_split <span class="op">==</span><span class="st"> </span>vintage)]
+  <span class="cf">if</span>(<span class="kw">length</span>(x_or_y) <span class="op">!=</span><span class="st"> </span><span class="dv">1</span>) <span class="kw">stop</span>(<span class="st">&quot;vintage doesn&#39;t match&quot;</span>)
+  
+  cw &lt;-<span class="st"> </span>crosswalks[[vintage_pair]]
+  cw<span class="op">$</span>GEOID &lt;-<span class="st"> </span>cw[,x_or_y] <span class="op">%&gt;%</span><span class="st"> </span>unlist
+  <span class="kw">return</span>(cw <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(GEOID) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">pop10 =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))
+}
+
+pops_pre2012 &lt;-<span class="st"> </span><span class="kw">get_pop_from_cw</span>(<span class="st">&quot;pre2012,2012&quot;</span>, <span class="st">&quot;pre2012&quot;</span>)
+pops_<span class="dv">2012</span> &lt;-<span class="st"> </span><span class="kw">get_pop_from_cw</span>(<span class="st">&quot;pre2012,2012&quot;</span>, <span class="st">&quot;2012&quot;</span>)
+pops_post2012 &lt;-<span class="st"> </span><span class="kw">get_pop_from_cw</span>(<span class="st">&quot;2012,post2012&quot;</span>, <span class="st">&quot;post2012&quot;</span>)
+pops_<span class="dv">2018</span> &lt;-<span class="st"> </span><span class="kw">get_pop_from_cw</span>(<span class="st">&quot;post2012,2018&quot;</span>, <span class="st">&quot;2018&quot;</span>)
+
+geography_pops &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(pops_pre2012, pops_<span class="dv">2012</span>, pops_post2012, pops_<span class="dv">2018</span>)
+
+geographies &lt;-<span class="st"> </span><span class="kw">left_join</span>(geographies, geography_pops)</code></pre></div>
+<p>Let’s compare the total votes to the total population to make sure nothing crazy happened:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">uspgov_votes &lt;-<span class="st"> </span>geography_results <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">inner_join</span>(
+    races <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw">filter</span>(
+        office <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;GOV&quot;</span>, <span class="st">&quot;USP&quot;</span>) <span class="op">&amp;</span>
+<span class="st">          </span><span class="kw">substr</span>(election, <span class="dv">6</span>, <span class="dv">6</span>) <span class="op">==</span><span class="st"> &quot;G&quot;</span>
+        )
+    ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">substr</span>(election, <span class="dv">1</span>, <span class="dv">4</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(year, GEOID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">vote_total =</span> <span class="kw">sum</span>(vote_total))
+
+<span class="kw">ggplot</span>(
+  uspgov_votes <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(geography_pops),
+  <span class="kw">aes</span>(<span class="dt">x=</span>pop10, <span class="dt">y=</span>vote_total)
+) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_sixtysix</span>()</code></pre></div>
+<p><img src="02_geographies_files/figure-html/pop_vote_comp-1.png" width="2100" /></p>
+<p>That looks good, but I want to flag something that’s weird. There are some combinations of districts that the shapefiles say shouldn’t exist. Here are some votes that aren’t in our intersections.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Looks
+uspgov_votes <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>GEOID <span class="op">%in%</span><span class="st"> </span>geography_pops<span class="op">$</span>GEOID)</code></pre></div>
+<pre><code>## # A tibble: 40 x 3
+## # Groups:   year [8]
+##    year  GEOID                  vote_total
+##    &lt;chr&gt; &lt;chr&gt;                       &lt;dbl&gt;
+##  1 2002  pre2012_046_017_07_091        430
+##  2 2002  pre2012_058_045_12_129       1754
+##  3 2002  pre2012_058_045_18_129        106
+##  4 2002  pre2012_136_016_15_095       1368
+##  5 2002  pre2012_137_016_15_095       1672
+##  6 2002  pre2012_175_001_03_101          0
+##  7 2004  pre2012_058_045_12_129       2770
+##  8 2004  pre2012_058_045_18_129        155
+##  9 2004  pre2012_136_016_15_095       2223
+## 10 2004  pre2012_137_016_15_095       2889
+## # ... with 30 more rows</code></pre>
+<p>Particularly, let’s consider <code>pre2012_136_016_15_095</code>. There are 1,618 votes in 2006 in precincts voted for State House 137 and State Senate 16. According to the census maps, those districts don’t overlap. I haven’t been able to figure out if this is a problem with the vote data or the shapefiles, and we’ll ignore it for the time being. How many votes do we mess up?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">uspgov_votes <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>GEOID <span class="op">%in%</span><span class="st"> </span>geography_pops<span class="op">$</span>GEOID) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="kw">sum</span>(vote_total))</code></pre></div>
+<pre><code>## # A tibble: 8 x 2
+##   year  `sum(vote_total)`
+##   &lt;chr&gt;             &lt;dbl&gt;
+## 1 2002               5330
+## 2 2004               8037
+## 3 2006               6796
+## 4 2008               9332
+## 5 2010               6056
+## 6 2012              13250
+## 7 2014                  1
+## 8 2016                  1</code></pre>
+<p>Our lost votes come entirely in 2012 or before, with a max of 13,000 votes in 2012. Does this matter? I have no idea.</p>
+<p>We’re done for now. Let’s save it and do some analysis!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(<span class="op">!</span><span class="kw">dir.exists</span>(<span class="st">&quot;outputs&quot;</span>)) <span class="kw">dir.create</span>(<span class="st">&quot;outputs&quot;</span>)
+
+save_objs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;crosswalks&quot;</span>,<span class="st">&quot;geographies&quot;</span>,<span class="st">&quot;geography_results&quot;</span>, <span class="st">&quot;year_to_geo_vintage&quot;</span>)
+
+<span class="kw">save</span>(
+  <span class="dt">list =</span> save_objs,
+  <span class="dt">file=</span><span class="st">&quot;outputs/geographies_output.rda&quot;</span>
+)</code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="predicting-the-state-house-part-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["election_analytics_musa_workshop.pdf", "election_analytics_musa_workshop.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

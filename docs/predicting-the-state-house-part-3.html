@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 3 Predicting the State House, Part 3 | The PA Election Relational Database</title>
+  <meta name="description" content="Chapter 3 Predicting the State House, Part 3 | The PA Election Relational Database">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 3 Predicting the State House, Part 3 | The PA Election Relational Database" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Predicting the State House, Part 3 | The PA Election Relational Database" />
+  
+  
+  
+
+<meta name="author" content="Jonathan Tannen">
+
+
+<meta name="date" content="2019-03-20">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="predicting-the-state-house-part-2.html">
+<link rel="next" href="predicting-the-state-house.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://github.com/PennMUSA/ElectionAnalyticsWorkshop">Election Analytics Penn MUSA Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Predicting the State House, Part 1</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#the-relational-database"><i class="fa fa-check"></i><b>1.1</b> The Relational Database</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="predicting-the-state-house-part-2.html"><a href="predicting-the-state-house-part-2.html"><i class="fa fa-check"></i><b>2</b> Predicting the State House, Part 2</a><ul>
+<li class="chapter" data-level="2.1" data-path="predicting-the-state-house-part-2.html"><a href="predicting-the-state-house-part-2.html#creating-geographies"><i class="fa fa-check"></i><b>2.1</b> Creating Geographies</a></li>
+<li class="chapter" data-level="2.2" data-path="predicting-the-state-house-part-2.html"><a href="predicting-the-state-house-part-2.html#year-to-year-crosswalks"><i class="fa fa-check"></i><b>2.2</b> Year to year crosswalks</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html"><i class="fa fa-check"></i><b>3</b> Predicting the State House, Part 3</a><ul>
+<li class="chapter" data-level="3.1" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#prepping-the-data-for-analysis"><i class="fa fa-check"></i><b>3.1</b> Prepping the data for analysis</a></li>
+<li class="chapter" data-level="3.2" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#thinking-ahead"><i class="fa fa-check"></i><b>3.2</b> Thinking ahead</a></li>
+<li class="chapter" data-level="3.3" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#the-model"><i class="fa fa-check"></i><b>3.3</b> The model</a></li>
+<li class="chapter" data-level="3.4" data-path="predicting-the-state-house-part-3.html"><a href="predicting-the-state-house-part-3.html#building-2018"><i class="fa fa-check"></i><b>3.4</b> Building 2018</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html"><i class="fa fa-check"></i><b>4</b> Predicting the State House</a><ul>
+<li class="chapter" data-level="4.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#the-pennsylvania-state-house"><i class="fa fa-check"></i><b>4.1</b> The Pennsylvania State House</a></li>
+<li class="chapter" data-level="4.2" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#overview-of-the-data"><i class="fa fa-check"></i><b>4.2</b> Overview of the Data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#exercise-1-fit-a-model"><i class="fa fa-check"></i><b>4.2.1</b> Exercise 1: Fit a Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#our-model"><i class="fa fa-check"></i><b>4.3</b> Our model</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#using-contemporaneous-data"><i class="fa fa-check"></i><b>4.3.1</b> Using contemporaneous data</a></li>
+<li class="chapter" data-level="4.3.2" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#the-model-1"><i class="fa fa-check"></i><b>4.3.2</b> The model</a></li>
+<li class="chapter" data-level="4.3.3" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#bootstrapping"><i class="fa fa-check"></i><b>4.3.3</b> Bootstrapping</a></li>
+<li class="chapter" data-level="4.3.4" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#crosswalking"><i class="fa fa-check"></i><b>4.3.4</b> Crosswalking</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#fitting-the-model"><i class="fa fa-check"></i><b>4.4</b> Fitting the model</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#exercise-2-make-a-diagnostic-plot"><i class="fa fa-check"></i><b>4.4.1</b> Exercise 2: Make a diagnostic plot</a></li>
+<li class="chapter" data-level="4.4.2" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#more-diagnostics"><i class="fa fa-check"></i><b>4.4.2</b> More diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#results-for-all-years"><i class="fa fa-check"></i><b>4.5</b> Results for all years</a></li>
+<li class="chapter" data-level="4.6" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#predicting-2018"><i class="fa fa-check"></i><b>4.6</b> Predicting 2018</a></li>
+<li class="chapter" data-level="4.7" data-path="predicting-the-state-house.html"><a href="predicting-the-state-house.html#fast-forward-to-today"><i class="fa fa-check"></i><b>4.7</b> Fast forward to today</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The PA Election Relational Database</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="predicting-the-state-house-part-3" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Predicting the State House, Part 3</h1>
+<div id="prepping-the-data-for-analysis" class="section level2">
+<h2><span class="header-section-number">3.1</span> Prepping the data for analysis</h2>
+<p>After having made such a big deal about Relational Databases, we need to create a boring old rectangular data.frame for our regression analysis. Let’s do that here.</p>
+<p>Our target is a wide results table, with one row for each race, and sufficient columns for any race-level covariates we want to include in the model.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">source</span>(<span class="st">&quot;utils/util.R&quot;</span>)
+
+<span class="kw">load</span>(<span class="st">&quot;data/relational_db.rda&quot;</span>)
+<span class="kw">load</span>(<span class="st">&quot;outputs/geographies_output.rda&quot;</span>)</code></pre></div>
+</div>
+<div id="thinking-ahead" class="section level2">
+<h2><span class="header-section-number">3.2</span> Thinking ahead</h2>
+<p>Let’s think about how we want to model the data. That’ll inform what columns we need.</p>
+<p>First, I decide to model only the “two-party” vote, dropping everyone who’s not a Democrat or Republican. Remember that <code>candidates</code> has an imputed <code>party_replaced</code> for candidates who sneakily ran as third-parties for an uncontested election.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results_with_parties &lt;-<span class="st"> </span>geography_results <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">inner_join</span>(
+    races <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">substr</span>(election, <span class="dv">6</span>, <span class="dv">6</span>) <span class="op">==</span><span class="st"> &quot;G&quot;</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(candidates_to_races) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(race, candidate, office, cofips<span class="op">:</span>sth, vote_total, GEOID, party_replaced) 
+
+## Make sure only Dem or Rep won. If a third party ever won, we&#39;d need to rethink this...
+results_with_parties <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(race, office, party_replaced) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">vote_total =</span> <span class="kw">sum</span>(vote_total)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(race) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rank =</span> <span class="kw">rank</span>(<span class="op">-</span>vote_total)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(rank <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(office, party_replaced, rank) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(rank, n)</code></pre></div>
+<pre><code>## # A tibble: 39 x 4
+## # Groups:   office, party_replaced [39]
+##    office party_replaced   `1`   `2`
+##    &lt;chr&gt;  &lt;chr&gt;          &lt;int&gt; &lt;int&gt;
+##  1 GOV    DEM                3     1
+##  2 GOV    REP                1     3
+##  3 STH    ACT               NA     1
+##  4 STH    CON               NA     1
+##  5 STH    CST               NA     3
+##  6 STH    D/G               NA     1
+##  7 STH    DBP               NA     1
+##  8 STH    DEM              742   504
+##  9 STH    F4B               NA     1
+## 10 STH    F89               NA     1
+## # ... with 29 more rows</code></pre>
+<p>Ok, we’ve got cleaned parties.</p>
+</div>
+<div id="the-model" class="section level2">
+<h2><span class="header-section-number">3.3</span> The model</h2>
+<p>Here, I’ll preview the model I use in <a href="04_model.html">Making the Predictions</a>, since that dictates what data we need. How will we predict the votes? Here’s the model.</p>
+<p>Let’s call <span class="math inline">\(sth_{yr}\)</span> the two-party percent of the vote for State House in year <span class="math inline">\(y\)</span> in race <span class="math inline">\(r\)</span>.</p>
+<p>In a best case scenario, we would have polls of voters. Then we could capture simple-seeming things that our data has no idea of: How charismatic is a candidate? Are they well organized? Have they been running ads? Polls are what FiveThirtyEight uses, and why they get such good predictions. Of course, noboday actually publicly polls the 203 PA State House races.</p>
+<p>In a worst case scenario, we would have to use only data from prior elections. This would leave us completely unable to predict large swings in public sentiment, and we would have to expand our uncertainty to capture the full range of election-level random effects (aka the way that all races are correlated from year to year). Imagine trying to predict the 2018 election using only the 2016 and 2014 results, without any data from 2018 that signaled Something Is Different. We would need to produce predictions capable of saying both “maybe this year is like 2010” and “maybe this year is like 2006”.</p>
+<p>Luckily, we are somewhere in between. While we don’t have polling on this year’s State House races, we do have polling on the US Congressional races. To the extent that USC races are correlated with STH races (probably a lot), we can use the USC polls to estimate the overall tenor of the race. Better yet, we don’t have to actually use polling data itself, because FiveThirtyEight has already translated them into predicted votes. _sunglassesemoji_ Here’s the plan: model the results in a State House race as a function of past results in that district along with the US Congress results <em>in that year</em>:</p>
+<p><span class="math display">\[
+\begin{align*}
+sth_{yr} =&amp; \beta_0 + \beta_1 sth_{y-1,r} + \beta_2 incumbent\_is\_dem_{yr} + \beta_3 sth_{y-1,r} * incumbent\_is\_dem_{yr} \\
+&amp;+ \beta_4 usc_{y,usc(r)} + \beta_5 usc_{y,PA} +  \beta_6 uspgov_{y-1, r} + \beta_7 uspgov_{y, PA} + \beta_8 uspgov_{y-1, PA} + \epsilon_{yr}
+\end{align*}
+\]</span> where <span class="math inline">\(incumbent\_is\_dem\)</span> is <span class="math inline">\(1\)</span> if the democratic candidate is an incumbent, <span class="math inline">\(-1\)</span> if the republican is, and <span class="math inline">\(0\)</span> otherwise; <span class="math inline">\(usc(r)\)</span> is the result in the entire USC district that race <span class="math inline">\(r\)</span> belongs to (as opposed to just in the precinct); the subscript <span class="math inline">\(PA\)</span> represents the state-wide results; and <span class="math inline">\(uspgov\)</span> is the result of either the USP or the GOV race, whichever occurred that year.</p>
+<p>One thing to note is that I don’t include year-level random effects. Instead, I parametrize the vote using several annual-level covariates: this year’s USPGOV results, last year’s USPGOV results, this year’s total USC results, and an overall mean. That’s four degrees of freedom used up when we’re only going to be able to use data from seven elections; we’re already on thin ice, and hopefully uncertainty in those <span class="math inline">\(\beta\)</span>s capture annual variations. We’ll check when we model</p>
+<p>The above results will work well for races where everything was contested, but we clearly shouldn’t include uncontested races. So we’ll do two things: for races that are uncontested in year <span class="math inline">\(y\)</span>, we will not model them at all, since we know the running candidate will win 100% of the vote. For races that were not contested last cycle but are contested this year, we will model them entirely separately, using a different equation:</p>
+<p><strong>Model for formerly uncontested races:</strong> <span class="math display">\[
+\begin{align*}
+sth_{yr} =&amp; \beta_0 + \beta_1 dem\_is\_uncontested_{y-1, r} + \beta_2 dem\_is\_uncontested_{y-1, r} * incumbent\_is\_running_{y,r} \\
+&amp;+ \beta_4 usc_{y,usc(r)} + \beta_5 usc_{y,PA} +  \beta_6 uspgov_{y-1, r} + \beta_7 uspgov_{y, PA} + \beta_8 uspgov_{y-1, PA} + \epsilon_{yr}
+\end{align*}
+\]</span></p>
+<p>So now we know what we need: a dataframe with one row per State House race, with the last year’s STH results, and this year’s USP/GOV and USC results.</p>
+<p>First, let’s create the wide table, with the STH results.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## from here on out we only consider 2-party vote:
+results_with_parties &lt;-<span class="st"> </span>results_with_parties <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(party_replaced <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;DEM&quot;</span>, <span class="st">&quot;REP&quot;</span>)) 
+
+rep_na_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">replace</span>(x, <span class="kw">is.na</span>(x), <span class="dv">0</span>)  
+sth_races &lt;-<span class="st"> </span>results_with_parties <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">inner_join</span>(races <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(office <span class="op">==</span><span class="st"> &#39;STH&#39;</span>))  <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(race, sth, party_replaced, candidate) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">votes_sth =</span> <span class="kw">sum</span>(vote_total)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(candidates_to_races <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(race, candidate, is_incumbent)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="st">&quot;key&quot;</span>, <span class="st">&quot;value&quot;</span>, votes_sth, candidate, is_incumbent) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">unite</span>(<span class="st">&quot;key&quot;</span>, party_replaced, key) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(key, value, <span class="dt">convert =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">sth_pctdem =</span> <span class="kw">rep_na_0</span>(DEM_votes_sth) <span class="op">/</span><span class="st"> </span>(<span class="kw">rep_na_0</span>(DEM_votes_sth) <span class="op">+</span><span class="st"> </span><span class="kw">rep_na_0</span>(REP_votes_sth))
+  )
+
+sth_races<span class="op">$</span>incumbent_is_dem &lt;-<span class="st"> </span><span class="dv">0</span>
+sth_races<span class="op">$</span>incumbent_is_dem &lt;-<span class="st"> </span><span class="kw">with</span>(
+  sth_races, 
+  <span class="kw">replace</span>(incumbent_is_dem, <span class="op">!</span><span class="kw">is.na</span>(DEM_is_incumbent) <span class="op">&amp;</span><span class="st"> </span><span class="kw">as.logical</span>(DEM_is_incumbent), <span class="dv">1</span>)
+)
+
+sth_races<span class="op">$</span>incumbent_is_dem &lt;-<span class="st"> </span><span class="kw">with</span>(
+  sth_races, 
+  <span class="kw">replace</span>(incumbent_is_dem, <span class="op">!</span><span class="kw">is.na</span>(REP_is_incumbent) <span class="op">&amp;</span><span class="st"> </span><span class="kw">as.logical</span>(REP_is_incumbent), <span class="op">-</span><span class="dv">1</span>)
+)
+
+sth_races<span class="op">$</span>dem_is_uncontested &lt;-<span class="st"> </span><span class="kw">with</span>(
+  sth_races,
+  <span class="kw">ifelse</span>(<span class="kw">is.na</span>(REP_candidate), <span class="dv">1</span>, <span class="kw">ifelse</span>(<span class="kw">is.na</span>(DEM_candidate), <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>))
+)
+
+## We&#39;ll call our main table df
+df &lt;-<span class="st"> </span>sth_races <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">substr</span>(race,<span class="dv">1</span>,<span class="dv">4</span>))
+<span class="kw">head</span>(df)</code></pre></div>
+<pre><code>## # A tibble: 6 x 12
+## # Groups:   race, sth [6]
+##   race  sth   DEM_candidate DEM_is_incumbent DEM_votes_sth REP_candidate
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;         &lt;lgl&gt;                    &lt;int&gt; &lt;chr&gt;        
+## 1 2002~ 001   LINDA BEBKOJ~ NA                        8895 BILL STEPHAN~
+## 2 2002~ 010   &lt;NA&gt;          NA                          NA FRANK LAGROT~
+## 3 2002~ 100   BRUCE BEARDS~ NA                        3308 GIBSON C ARM~
+## 4 2002~ 101   NOEL HUBLER ~ NA                        5358 MAUREE A GIN~
+## 5 2002~ 102   DAN BACKENST~ NA                        3965 PETER J ZUG ~
+## 6 2002~ 103   RON BUXTON (~ NA                        7866 SHERMAN C CU~
+## # ... with 6 more variables: REP_is_incumbent &lt;lgl&gt;, REP_votes_sth &lt;dbl&gt;,
+## #   sth_pctdem &lt;dbl&gt;, incumbent_is_dem &lt;dbl&gt;, dem_is_uncontested &lt;dbl&gt;,
+## #   year &lt;chr&gt;</code></pre>
+<p>Next, let’s get the USC results from the same year. We want to calculate the overall USC results, then apportion them to STH districts. While we could use precinct-level USC results to train the model, we don’t have precinct-level predictions from FiveThirtyEight, and will need to use only topline results for our predictions. So we’ll mimic that here.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">usc_results &lt;-<span class="st"> </span>results_with_parties <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">inner_join</span>(races <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(office <span class="op">==</span><span class="st"> &#39;USC&#39;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(race, usc, party_replaced, candidate) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">votes_usc =</span> <span class="kw">sum</span>(vote_total)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(race) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">cand_pct =</span> votes_usc <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(votes_usc)
+  ) </code></pre></div>
+<p>Some of the USC races were uncontested, which will unhelpfully show up as 100% wins, and potentially skew our predictions. Let’s simplistically impute what those races would have been had they been contested, by regressing on the district’s vote in the USP/GOV race. (Typical studies find that the uncontested candidate would have won by 60%-95%.)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">usc_wide &lt;-<span class="st"> </span>usc_results <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(race, usc, party_replaced, cand_pct) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(party_replaced, cand_pct, <span class="dt">fill=</span><span class="dv">0</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">is_uncontested =</span> <span class="kw">ifelse</span>(
+      DEM <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;REP&quot;</span>, <span class="kw">ifelse</span>(REP <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;DEM&quot;</span>, <span class="st">&quot;contested&quot;</span>)
+    ),
+    <span class="dt">year =</span> <span class="kw">substr</span>(race,<span class="dv">1</span>,<span class="dv">4</span>),
+    <span class="dt">usc_pctdem_2party =</span> DEM <span class="op">/</span><span class="st"> </span>(DEM <span class="op">+</span><span class="st"> </span>REP),
+    <span class="dt">total_votes =</span> DEM <span class="op">+</span><span class="st"> </span>REP
+  )
+
+uspgov_by_usc &lt;-<span class="st"> </span>results_with_parties <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(office <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;GOV&quot;</span>, <span class="st">&quot;USP&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">substr</span>(race, <span class="dv">1</span>, <span class="dv">4</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(year, usc, party_replaced) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">vote_total =</span> <span class="kw">sum</span>(vote_total)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(party_replaced, vote_total) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">uspgov_pctdem_2party =</span> DEM <span class="op">/</span><span class="st"> </span>(DEM <span class="op">+</span><span class="st"> </span>REP)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>DEM, <span class="op">-</span>REP)
+
+imputation_df &lt;-<span class="st"> </span>usc_wide <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(uspgov_by_usc)
+imputation_fit &lt;-<span class="st"> </span><span class="kw">lm</span>(
+  usc_pctdem_2party <span class="op">~</span><span class="st"> </span>uspgov_pctdem_2party <span class="op">+</span><span class="st"> </span><span class="kw">factor</span>(year),
+  <span class="dt">data=</span>imputation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(is_uncontested <span class="op">==</span><span class="st"> &#39;contested&#39;</span>)
+)
+
+<span class="kw">summary</span>(imputation_fit)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = usc_pctdem_2party ~ uspgov_pctdem_2party + factor(year), 
+##     data = imputation_df %&gt;% filter(is_uncontested == &quot;contested&quot;))
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.226962 -0.049530 -0.007464  0.042506  0.296493 
+## 
+## Coefficients:
+##                      Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)          -0.07601    0.03669  -2.072  0.04046 *  
+## uspgov_pctdem_2party  0.99908    0.04848  20.608  &lt; 2e-16 ***
+## factor(year)2004      0.04495    0.03214   1.399  0.16454    
+## factor(year)2006      0.02414    0.03003   0.804  0.42321    
+## factor(year)2008      0.07660    0.02978   2.572  0.01135 *  
+## factor(year)2010      0.10078    0.03064   3.289  0.00132 ** 
+## factor(year)2012      0.05891    0.02988   1.972  0.05097 .  
+## factor(year)2014     -0.00992    0.03096  -0.320  0.74921    
+## factor(year)2016      0.06344    0.03128   2.028  0.04479 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.0815 on 118 degrees of freedom
+## Multiple R-squared:  0.7886, Adjusted R-squared:  0.7743 
+## F-statistic: 55.02 on 8 and 118 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Let’s make sure they look sane:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">imputation_df<span class="op">$</span>usc_pctdem_2party_imputed &lt;-<span class="st"> </span><span class="kw">ifelse</span>(
+  imputation_df<span class="op">$</span>is_uncontested <span class="op">==</span><span class="st"> &#39;contested&#39;</span>,
+  imputation_df<span class="op">$</span>usc_pctdem_2party,
+  <span class="kw">predict</span>(imputation_fit, <span class="dt">newdata =</span> imputation_df)
+)
+
+<span class="kw">ggplot</span>(imputation_df, <span class="kw">aes</span>(<span class="dt">x=</span>uspgov_pctdem_2party, <span class="dt">y=</span>usc_pctdem_2party_imputed)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>is_uncontested)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_sixtysix</span>()</code></pre></div>
+<p><img src="03_rectangular_data_files/figure-html/imputed-1.png" width="2100" /> Sure, they’re fine. The imputed values aren’t obviously different than the contested races. Let’s apportion the USC results to STH districts using a population-weighted average.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">usc_to_sth &lt;-<span class="st"> </span>geographies <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(vintage, sth, usc) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">pop10=</span><span class="kw">sum</span>(pop10, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(vintage, usc) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">frac_of_usc =</span> pop10 <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(pop10))
+
+sth_usc_results &lt;-<span class="st"> </span>imputation_df <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(year_to_geo_vintage) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(usc_to_sth) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(year, sth) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">usc_pctdem =</span> <span class="kw">weighted.mean</span>(usc_pctdem_2party_imputed, <span class="dt">w =</span> total_votes <span class="op">*</span><span class="st"> </span>frac_of_usc)
+  )</code></pre></div>
+<p>Join the USC results to the STH results.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, sth_usc_results)
+<span class="kw">tail</span>(df)   </code></pre></div>
+<pre><code>## # A tibble: 6 x 13
+## # Groups:   race, sth [6]
+##   race  sth   DEM_candidate DEM_is_incumbent DEM_votes_sth REP_candidate
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;         &lt;lgl&gt;                    &lt;int&gt; &lt;chr&gt;        
+## 1 2016~ 094   &lt;NA&gt;          NA                          NA STANLEY E SA~
+## 2 2016~ 095   CAROL HILLEV~ FALSE                    13726 JOEL L SEARS~
+## 3 2016~ 096   PETER MICHAE~ TRUE                     17340 ROBERT F BIG~
+## 4 2016~ 097   CHARLES J KL~ FALSE                    13403 STEVEN CURTI~
+## 5 2016~ 098   &lt;NA&gt;          NA                          NA DAVID S HICK~
+## 6 2016~ 099   DUANE A GROF~ FALSE                     6219 DAVID H ZIMM~
+## # ... with 7 more variables: REP_is_incumbent &lt;lgl&gt;, REP_votes_sth &lt;dbl&gt;,
+## #   sth_pctdem &lt;dbl&gt;, incumbent_is_dem &lt;dbl&gt;, dem_is_uncontested &lt;dbl&gt;,
+## #   year &lt;chr&gt;, usc_pctdem &lt;dbl&gt;</code></pre>
+<p>Now let’s add the state-wide USP/GOV and USC races:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">statewide_results &lt;-<span class="st"> </span>results_with_parties <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">inner_join</span>(
+    races <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw">filter</span>(office <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;USP&quot;</span>,<span class="st">&quot;GOV&quot;</span>, <span class="st">&quot;USC&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">inner_join</span>(elections <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(election_type <span class="op">==</span><span class="st"> &quot;G&quot;</span>))
+  ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">office =</span> <span class="kw">ifelse</span>(office <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;USP&quot;</span>, <span class="st">&quot;GOV&quot;</span>), <span class="st">&quot;USPGOV&quot;</span>, office)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(election_year, party_replaced, office) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">vote_total=</span><span class="kw">sum</span>(vote_total)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">unite</span>(<span class="st">&quot;key&quot;</span>, office, party_replaced) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(key, vote_total) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">uspgov_pctdem_statewide =</span> USPGOV_DEM <span class="op">/</span><span class="st"> </span>(USPGOV_DEM <span class="op">+</span><span class="st"> </span>USPGOV_REP),
+    <span class="dt">usc_pctdem_statewide =</span> USC_DEM <span class="op">/</span><span class="st"> </span>(USC_DEM <span class="op">+</span><span class="st"> </span>USC_REP)
+  )
+
+df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(
+  statewide_results <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(election_year, uspgov_pctdem_statewide, usc_pctdem_statewide), 
+  <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;year&quot;</span>=<span class="st">&quot;election_year&quot;</span>)
+)
+
+<span class="kw">head</span>(df)</code></pre></div>
+<pre><code>## # A tibble: 6 x 15
+## # Groups:   race, sth [6]
+##   race  sth   DEM_candidate DEM_is_incumbent DEM_votes_sth REP_candidate
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;         &lt;lgl&gt;                    &lt;int&gt; &lt;chr&gt;        
+## 1 2002~ 001   LINDA BEBKOJ~ NA                        8895 BILL STEPHAN~
+## 2 2002~ 010   &lt;NA&gt;          NA                          NA FRANK LAGROT~
+## 3 2002~ 100   BRUCE BEARDS~ NA                        3308 GIBSON C ARM~
+## 4 2002~ 101   NOEL HUBLER ~ NA                        5358 MAUREE A GIN~
+## 5 2002~ 102   DAN BACKENST~ NA                        3965 PETER J ZUG ~
+## 6 2002~ 103   RON BUXTON (~ NA                        7866 SHERMAN C CU~
+## # ... with 9 more variables: REP_is_incumbent &lt;lgl&gt;, REP_votes_sth &lt;dbl&gt;,
+## #   sth_pctdem &lt;dbl&gt;, incumbent_is_dem &lt;dbl&gt;, dem_is_uncontested &lt;dbl&gt;,
+## #   year &lt;chr&gt;, usc_pctdem &lt;dbl&gt;, uspgov_pctdem_statewide &lt;dbl&gt;,
+## #   usc_pctdem_statewide &lt;dbl&gt;</code></pre>
+<p>Now for the hard part: adding lagged STH results. We need to crosswalk the past election results forward to the next year, using the <a href="02_geographies.html">crosswalks we made</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## first, get the results for each year
+sth_uspgov_results &lt;-<span class="st"> </span>results_with_parties <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">office =</span> <span class="kw">replace</span>(office, office <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;GOV&quot;</span>, <span class="st">&quot;USP&quot;</span>), <span class="st">&quot;USPGOV&quot;</span>),
+    <span class="dt">year =</span> <span class="kw">substr</span>(race, <span class="dv">1</span>, <span class="dv">4</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(office <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;STH&quot;</span>, <span class="st">&quot;USPGOV&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(year, office, cofips<span class="op">:</span>sth, GEOID, party_replaced, vote_total) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">unite</span>(<span class="st">&quot;key&quot;</span>, office, party_replaced) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(key, vote_total, <span class="dt">fill=</span><span class="dv">0</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">sth_is_uncontested =</span> <span class="kw">ifelse</span>(STH_DEM <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;REP&quot;</span>, <span class="kw">ifelse</span>(STH_REP <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&#39;DEM&#39;</span>, <span class="st">&#39;contested&#39;</span>)),
+    <span class="dt">sth_pctdem =</span> STH_DEM <span class="op">/</span><span class="st"> </span>(STH_DEM <span class="op">+</span><span class="st"> </span>STH_REP),
+    <span class="dt">uspgov_pctdem =</span> USPGOV_DEM <span class="op">/</span><span class="st"> </span>(USPGOV_DEM <span class="op">+</span><span class="st"> </span>USPGOV_REP)
+  )
+
+## now, walk them forward.
+results_list &lt;-<span class="st"> </span><span class="kw">list</span>()
+<span class="cf">for</span>(year_ <span class="cf">in</span> <span class="kw">seq</span>(<span class="dv">2002</span>, <span class="dv">2016</span>, <span class="dv">2</span>)){
+  <span class="kw">print</span>(year_)
+  vintage &lt;-<span class="st"> </span>year_to_geo_vintage<span class="op">$</span>vintage[year_to_geo_vintage<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>year_]
+  needed_vintage &lt;-<span class="st"> </span>year_to_geo_vintage<span class="op">$</span>vintage[year_to_geo_vintage<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>(year_<span class="op">+</span><span class="dv">2</span>)]
+  
+  <span class="cf">if</span>(vintage <span class="op">!=</span><span class="st"> </span>needed_vintage){
+    needed_crosswalk &lt;-<span class="st"> </span><span class="kw">paste</span>(vintage, needed_vintage, <span class="dt">sep=</span><span class="st">&#39;,&#39;</span>)
+    cw &lt;-<span class="st"> </span>crosswalks[[needed_crosswalk]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(pop <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(pop))
+  } <span class="cf">else</span> {
+    ## dummmy cw
+    cw &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+      <span class="dt">xid =</span> <span class="kw">unique</span>(sth_uspgov_results<span class="op">$</span>GEOID),
+      <span class="dt">yid =</span> <span class="kw">unique</span>(sth_uspgov_results<span class="op">$</span>GEOID),
+      <span class="dt">frac_of_x=</span><span class="dv">1</span>,
+      <span class="dt">frac_of_y=</span><span class="dv">1</span>
+    )
+  }
+  
+  geo_results_lagged &lt;-<span class="st"> </span>sth_uspgov_results <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span>year_) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">left_join</span>(cw, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;GEOID&quot;</span> =<span class="st"> &quot;xid&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>(yid, year) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise</span>(
+      <span class="dt">sth_pctdem_lagged =</span> <span class="kw">weighted.mean</span>(sth_pctdem, <span class="dt">w =</span> frac_of_y, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),
+      <span class="dt">uspgov_pctdem_lagged =</span> <span class="kw">weighted.mean</span>(uspgov_pctdem, <span class="dt">w =</span> frac_of_y, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),
+      <span class="dt">sth_frac_contested_lagged =</span> <span class="kw">weighted.mean</span>(sth_is_uncontested <span class="op">==</span><span class="st"> &quot;contested&quot;</span>, <span class="dt">w =</span> frac_of_y, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
+    ) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.character</span>(<span class="kw">asnum</span>(year) <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">rename</span>(<span class="dt">GEOID =</span> yid)
+  
+  sth_results_lagged &lt;-<span class="st"> </span>geo_results_lagged <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">left_join</span>(year_to_geo_vintage) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">left_join</span>(geographies <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>geometry)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>(year, sth) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise</span>(
+      <span class="dt">sth_pctdem_lagged =</span> <span class="kw">weighted.mean</span>(sth_pctdem_lagged, <span class="dt">w=</span>pop10, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),
+      <span class="dt">uspgov_pctdem_lagged =</span> <span class="kw">weighted.mean</span>(uspgov_pctdem_lagged, <span class="dt">w=</span>pop10, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),
+      <span class="dt">sth_frac_contested_lagged =</span> <span class="kw">weighted.mean</span>(sth_frac_contested_lagged, <span class="dt">w=</span>pop10, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
+    )
+  
+  results_list[[<span class="kw">as.character</span>(year_)]] &lt;-<span class="st"> </span>sth_results_lagged
+}</code></pre></div>
+<pre><code>## [1] 2002
+## [1] 2004
+## [1] 2006
+## [1] 2008
+## [1] 2010
+## [1] 2012
+## [1] 2014
+## [1] 2016</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sth_lagged &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, results_list)
+
+df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(sth_lagged)</code></pre></div>
+<p>Finally, we need the state-wide USPGOV results from the last year.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">statewide_lagged &lt;-<span class="st"> </span>statewide_results <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.character</span>(<span class="kw">asnum</span>(election_year)<span class="op">+</span><span class="dv">2</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(
+    <span class="dt">uspgov_pctdem_statewide_lagged =</span> uspgov_pctdem_statewide,
+    <span class="dt">usc_pctdem_statewide_lagged =</span> usc_pctdem_statewide
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(year, uspgov_pctdem_statewide_lagged, usc_pctdem_statewide_lagged)
+
+df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df, statewide_lagged)</code></pre></div>
+<p>We’re done with our training data! We have a rectangular data.frame with sufficient data for the equation above. Save it and move on.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">save</span>(df, <span class="dt">file=</span><span class="st">&quot;outputs/df.rda&quot;</span>)</code></pre></div>
+</div>
+<div id="building-2018" class="section level2">
+<h2><span class="header-section-number">3.4</span> Building 2018</h2>
+<p>All that’s left is to create the corresponding table for 2018, which we will use for our predictions. We obviously don’t have the results, but we can populate the race characteristics, the lagged results, and the USC estimates from FiveThirtyEight.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_<span class="dv">2018</span> &lt;-<span class="st"> </span>sth_lagged <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">2018</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(statewide_lagged) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(sth))
+
+## fivethirtyeight&#39;s prediction for 2018 wolf is 57%
+df_<span class="dv">2018</span><span class="op">$</span>uspgov_pctdem_statewide &lt;-<span class="st"> </span><span class="fl">0.57</span>
+
+## load the race particulars
+cands_<span class="dv">2018</span> &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/2018_cands.csv&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(
+    <span class="dt">d_inc =</span> incumbent_is_dem,
+    <span class="dt">r_inc =</span> incumbent_is_rep
+  )
+
+cands_<span class="dv">2018</span> &lt;-<span class="st"> </span>cands_<span class="dv">2018</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(office <span class="op">==</span><span class="st"> &#39;STH&#39;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">sth =</span> <span class="kw">sprintf</span>(<span class="st">&quot;%03d&quot;</span>, <span class="kw">asnum</span>(district)),
+    <span class="dt">dem_is_uncontested =</span> <span class="kw">ifelse</span>(
+      dem_cand <span class="op">==</span><span class="st"> &quot;No candidate&quot;</span>,
+      <span class="op">-</span><span class="dv">1</span>, 
+      <span class="kw">ifelse</span>(rep_cand <span class="op">==</span><span class="st"> &quot;No candidate&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+    ),
+    <span class="dt">incumbent_is_dem =</span> <span class="kw">ifelse</span>(d_inc, <span class="dv">1</span>, <span class="kw">ifelse</span>(r_inc, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>))
+  )
+
+df_<span class="dv">2018</span> &lt;-<span class="st"> </span>df_<span class="dv">2018</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(
+  cands_<span class="dv">2018</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(sth, dem_is_uncontested, incumbent_is_dem)
+)
+
+## now we need the state predictions
+fivethirtyeight &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/congress_races_2018_538.csv&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">usc =</span> <span class="kw">sprintf</span>(<span class="st">&quot;%02d&quot;</span>, district)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">usc_pctdem =</span> fivethirtyeight)
+
+## notice that one race is uncontested. we need to impute it.
+## it looks like uncontested winners should be imputed as 66%:
+<span class="kw">print</span>(
+  imputation_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">group_by</span>(is_uncontested) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean_imputed =</span> <span class="kw">mean</span>(usc_pctdem_2party_imputed))
+)</code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   is_uncontested mean_imputed
+##   &lt;chr&gt;                 &lt;dbl&gt;
+## 1 contested             0.501
+## 2 DEM                   0.665
+## 3 REP                   0.344</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fivethirtyeight<span class="op">$</span>usc_pctdem[fivethirtyeight<span class="op">$</span>district <span class="op">==</span><span class="st"> &#39;18&#39;</span>] &lt;-<span class="st"> </span><span class="fl">0.66</span>
+
+df_<span class="dv">2018</span><span class="op">$</span>usc_pctdem_statewide &lt;-<span class="st"> </span><span class="kw">mean</span>(fivethirtyeight<span class="op">$</span>usc_pctdem)
+
+sth_usc_<span class="dv">538</span> &lt;-<span class="st"> </span>geographies <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>geometry) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(vintage <span class="op">==</span><span class="st"> </span><span class="dv">2018</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(pop10)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(
+    fivethirtyeight <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(usc, usc_pctdem) 
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sth) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">usc_pctdem =</span> <span class="kw">weighted.mean</span>(usc_pctdem, <span class="dt">w =</span> pop10, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+  )
+
+df_<span class="dv">2018</span> &lt;-<span class="st"> </span><span class="kw">left_join</span>(df_<span class="dv">2018</span>, sth_usc_<span class="dv">538</span>)
+
+df_<span class="dv">2018</span><span class="op">$</span>race &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;2018 G STH STH-&quot;</span>, df_<span class="dv">2018</span><span class="op">$</span>sth)
+<span class="kw">head</span>(df_<span class="dv">2018</span>)</code></pre></div>
+<pre><code>## # A tibble: 6 x 13
+## # Groups:   year [1]
+##   year  sth   sth_pctdem_lagg~ uspgov_pctdem_l~ sth_frac_contes~
+##   &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1 2018  001              0.736            0.661                1
+## 2 2018  002              0.646            0.580                1
+## 3 2018  003              0.597            0.480                1
+## 4 2018  004              0                0.362                0
+## 5 2018  005              0                0.321                0
+## 6 2018  006              0.400            0.351                1
+## # ... with 8 more variables: uspgov_pctdem_statewide_lagged &lt;dbl&gt;,
+## #   usc_pctdem_statewide_lagged &lt;dbl&gt;, uspgov_pctdem_statewide &lt;dbl&gt;,
+## #   dem_is_uncontested &lt;dbl&gt;, incumbent_is_dem &lt;dbl&gt;,
+## #   usc_pctdem_statewide &lt;dbl&gt;, usc_pctdem &lt;dbl&gt;, race &lt;chr&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## I think we&#39;re done
+<span class="kw">save</span>(df_<span class="dv">2018</span>, <span class="dt">file=</span><span class="st">&quot;outputs/df_2018.rda&quot;</span>)</code></pre></div>
+<p>So that’s it! We’ve got our data. Now for the <a href="04_model.html">modeling</a>.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="predicting-the-state-house-part-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="predicting-the-state-house.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["election_analytics_musa_workshop.pdf", "election_analytics_musa_workshop.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
