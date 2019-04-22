@@ -7,4 +7,4 @@ Last year, the Pennsylvania Supreme Court overturned the Pennsylvania congressio
 
 Join us for an afternoon of election analytics. Chris Satullo, former WHYY News Director and current [Draw the Lines Project Manager](https://drawthelinespa.org/) will discuss gerrymandering and the District Builder tool. To follow, demographer Jonathan Tannen, founder of Philadelphia election analytics site [Sixty-Six Wards](http://www.sixtysixwards.com/), will give an interactive tutorial on predicting elections in R.
 
-<strong>The R code for the tutorial can be accessed [here](https://pennmusa.github.io/ElectionAnalyticsWorkshop/) and the data can be found [here](https://github.com/PennMUSA/ElectionAnalyticsWorkshop/tree/master/data).</strong>
+<strong>The R code for the tutorial can be found [here](https://pennmusa.github.io/ElectionAnalyticsWorkshop/), the data can be accessed [here](https://github.com/PennMUSA/ElectionAnalyticsWorkshop/tree/master/data), and helper functions can be found [here](https://github.com/PennMUSA/ElectionAnalyticsWorkshop/tree/master/utils).</strong>
