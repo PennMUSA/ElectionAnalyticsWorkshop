@@ -1,0 +1,249 @@
+office,district,dem_cand,dem_cand_match,rep_cand,rep_cand_match,is_demrep,incumbent_is_dem,incumbent_is_rep,dem_female,rep_female,dem_is_female,n_females
+STH,1,Patrick Harkins (I),PATRICK J HARKINS (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,2,Robert Merski,,Timothy Kuzma,,TRUE,FALSE,FALSE,0,0,0,0
+STH,3,Ryan Bizzarro (I),RYAN A BIZZARRO (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,4,No candidate,,Curtis Sonney (I),CURTIS G SONNEY (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,5,No candidate,,Barry J. Jozwiak (I),BARRY J JOZWIAK (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,6,No candidate,,Bradley Roae (I),BRADLEY T ROAE (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,7,Mark Longietti (I),,No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,8,Lisa Boeving-Learned,,Tedd Nesbit (I),TEDD C NESBIT (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,9,Chris Sainato (I),CHRISTOPHER SAINATO (STH),Gregory Michalek,,TRUE,TRUE,FALSE,0,0,0,0
+STH,10,No candidate,,Aaron Bernstine (I),AARON JOSEPH BERNSTINE (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,11,No candidate,,Brian Ellis (I),BRIAN L ELLIS (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,12,Daniel Smith Jr.,,Daryl Metcalfe (I),DARYL D METCALFE (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,13,Susannah Walker,,John Lawrence (I),JOHN ADDA LAWRENCE (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,14,Amy Fazio,,Jim Marshall (I),JAMES E MARSHALL (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,15,Terri Mitko,,Joshua Kail,,TRUE,FALSE,FALSE,1,0,1,1
+STH,16,Robert Matzie (I),ROBERT F MATZIE (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,17,No candidate,,Parke Wentling (I),PARKE H WENTLING (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,18,James Lamb III,,Gene DiGirolamo (I),GENE D DIGIROLAMO (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,19,Jake Wheatley Jr. (I),JAKE WHEATLEY (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,20,Adam Ravenstahl (I),ADAM J RAVENSTAHL (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,21,Sara Innamorato,,No candidate,,FALSE,FALSE,FALSE,1,0,1,1
+STH,22,Peter Schweyer (I),PETER GEORGE SCHWEYER (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,23,Dan Frankel (I),DAN B FRANKEL (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,24,Edward Gainey (I),EDWARD C GAINEY (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,25,Brandon Markosek,,Stephen Schlauch,,TRUE,FALSE,FALSE,0,0,0,0
+STH,26,Pamela Hacker,,Timothy Hennessey (I),TIMOTHY F HENNESSEY (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,27,Daniel Deasy Jr. (I),DANIEL J DEASY JR (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,28,Emily Skopov,,Mike Turzai (I),MICHAEL C TURZAI (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,29,Andrew Dixon,,Meghan Schroeder,,TRUE,FALSE,FALSE,0,1,-1,1
+STH,30,Elizabeth Monroe,,Lori Mizgorski,,TRUE,FALSE,FALSE,1,1,0,2
+STH,31,Perry Warren (I),PERRY S WARREN (STH),Ryan Gallagher,RYAN W GALLAGHER (STH),TRUE,TRUE,FALSE,0,0,0,0
+STH,32,Anthony DeLuca (I),ANTHONY M DE LUCA (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,33,Frank Dermody (I),FRANCIS J DERMODY (STH),Joshua Nulph,,TRUE,TRUE,FALSE,0,0,0,0
+STH,34,Summer Lee,,No candidate,,FALSE,FALSE,FALSE,1,0,1,1
+STH,35,Austin Davis (I),,No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,36,Harry Readshaw III (I),HARRY A READSHAW (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,37,Suzanne Delahunt,,Mindy Fee (I),MELINDA S FEE (STH),TRUE,FALSE,TRUE,1,1,0,2
+STH,38,William Kortz II (I),WILLIAM C KORTZ (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,39,Robert Rhoderick Jr.,,Michael Puskaric,,TRUE,FALSE,FALSE,0,0,0,0
+STH,40,Sharon Guidi,,Natalie Mihalek Stuck,,TRUE,FALSE,FALSE,1,1,0,2
+STH,41,Michele Wherley,,Brett Miller (I),BRETT R MILLER (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,42,Dan Miller (I),DANIEL LAURENZANO MILLER (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,43,Jennie Porter,,Keith Greiner (I),KEITH J GREINER (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,44,Michele Knoll,,Valerie Gaydos,,TRUE,FALSE,FALSE,1,1,0,2
+STH,45,Anita Astorino Kulik (I),ANITA ASTORINO KULIK (STH),No candidate,,FALSE,TRUE,FALSE,1,0,1,1
+STH,46,Byron Timmins,,Jason Ortitay (I),JASON A ORTITAY (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,47,Michael Wascovich,,Keith Gillespie (I),KEITH J GILLESPIE (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,48,Clark Mitchell Jr.,,Timothy O'Neal (I),,TRUE,FALSE,TRUE,0,0,0,0
+STH,49,Steven Toprani,,Bud Cook (I),DONALD COOK (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,50,Pam Snyder (I),PAMELA SNYDER (STH),Elizabeth McClure,ELIZABETH L ROHANNA MCCLURE (STH),TRUE,TRUE,FALSE,1,1,0,2
+STH,51,Timothy Mahoney,TIMOTHY S MAHONEY (STH),Matthew Dowling (I),MATTHEW DAVID DOWLING (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,52,Ethan Keedy,,Ryan Warner (I),RYAN JAMES WARNER (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,53,Steven Malagari,,George Szekely II,,TRUE,FALSE,FALSE,0,0,0,0
+STH,54,Jonathan McCabe,,Robert Brooks,,TRUE,FALSE,FALSE,0,0,0,0
+STH,55,Joseph Petrarca (I),JOSEPH A PETRARCA (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,56,Douglas Hunt,,George Dunbar (I),GEORGE S DUNBAR (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,57,Collin Warren,,Eric Nelson (I),ERIC R NELSON (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,58,Mary Popovich,MARY E POPOVICH (STH),Justin Walsh (I),JUSTIN M WALSH (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,59,Clare Dooley,,Mike Reese (I),MICHAEL P REESE (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,60,No candidate,,Jeffrey Pyle (I),JEFF PAUL PYLE (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,61,Liz Hanbidge,,Catherine Harper (I),CATHERINE M HARPER (STH),TRUE,FALSE,TRUE,1,1,0,2
+STH,62,Logan Dellafiora,,James Struzzi II,,TRUE,FALSE,FALSE,0,0,0,0
+STH,63,Conrad Warner,,Donna Oberlander (I),DONNA R OBERLANDER (STH),TRUE,FALSE,TRUE,0,1,-1,1
+STH,64,John Kluck,JOHN KLUCK (STH),R. Lee James (I),ROBERT LEE JAMES (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,65,No candidate,,Kathy Rapp (I),KATHY L RAPP (STH),FALSE,FALSE,TRUE,0,1,-1,1
+STH,66,Kerith Taylor,,Cris Dush (I),CRIS E DUSH (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,67,Maryanne Cole,,Martin Causer (I),MARTIN T CAUSER (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,68,Carrie Heath,,Clint Owlett (I),,TRUE,FALSE,TRUE,1,0,1,1
+STH,69,Jeff Cole,,Carl Metzgar (I),CARL WALKER METZGAR (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,70,Matthew Bradford (I),MATTHEW D BRADFORD (STH),Christopher Mundiath,,TRUE,TRUE,FALSE,0,0,0,0
+STH,71,Bryan Barbin (I),BRYAN E BARBIN (STH),James Rigby,,TRUE,TRUE,FALSE,0,0,0,0
+STH,72,Frank Burns (I),FRANK J BURNS (STH),Gerald Carnicella,,TRUE,TRUE,FALSE,0,0,0,0
+STH,73,No candidate,,Thomas Sankey (I),THOMAS R SANKEY III (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,74,Dan Williams,,Amber Turner,,TRUE,FALSE,FALSE,0,1,-1,1
+STH,75,No candidate,,Matt Gabler (I),MATTHEW M GABLER (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,76,Michael Hanna Jr.,MICHAEL KELLY HANNA (STH),Stephanie Borowicz,STEPHANIE PAIGE BOROWICZ (STH),TRUE,FALSE,FALSE,0,1,-1,1
+STH,77,H. Scott Conklin (I),H SCOTT CONKLIN (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,78,Deborah Baughman,,Jesse Topper (I),JESSE W TOPPER (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,79,No candidate,,Louis Schmitt Jr.,,FALSE,FALSE,FALSE,0,0,0,0
+STH,80,Laura Burke,,James Gregory,,TRUE,FALSE,FALSE,1,0,1,1
+STH,81,Richard Rogers Sr.,RICHARD J ROGERS (STH),Richard Irvin (I),RICHARD S IRVIN (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,82,No candidate,,Johnathan Hershey,,FALSE,FALSE,FALSE,0,0,0,0
+STH,83,Airneezer Page-Delahaye,,Jeff Wheeland (I),JEFF C WHEELAND (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,84,Linda Sosniak,,Garth Everett (I),GARTH DAVID EVERETT (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,85,Jennifer Rager-Kay,,Fred Keller (I),FREDERICK B KELLER (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,86,Karen Anderson,,Mark K. Keller (I),MARK K KELLER (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,87,Sean Quinlan,,Greg Rothman (I),WILLIAM GREGORY ROTHMAN (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,88,Jean Marie Foschi,,Sheryl Delozier (I),SHERYL MCVITTY DELOZIER (STH),TRUE,FALSE,TRUE,1,1,0,2
+STH,89,No candidate,,Rob Kauffman (I),ROBERT W KAUFFMAN (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,90,No candidate,,Paul Schemel (I),PAUL SCHEMEL (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,91,Marty Qually,,Dan Moul (I),DANIEL P MOUL (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,92,Shanna Danielson,,Dawn Keefer (I),DAWN WETZEL KEEFER (STH),TRUE,FALSE,TRUE,1,1,0,2
+STH,93,Delma Rivera-Lytle,,Mike Jones,,TRUE,FALSE,FALSE,1,0,1,1
+STH,94,Stephen Snell,,Stanley Saylor (I),STANLEY E SAYLOR (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,95,Carol Hill-Evans (I),CAROL HILLEVANS (STH),No candidate,,FALSE,TRUE,FALSE,1,0,1,1
+STH,96,P. Michael Sturla (I),PETER MICHAEL STURLA (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,97,Dana Gulick,,Steven Mentzer (I),STEVEN CURTIS MENTZER (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,98,Mary Auker-Endres,,David Hickernell (I),DAVID S HICKERNELL (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,99,Elizabeth Malarkey,,David H. Zimmerman (I),DAVID H ZIMMERMAN (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,100,Dale Hamby,DALE ALLEN HAMBY (STH),Bryan Cutler (I),BRYAN D CUTLER (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,101,Cesar Liriano,,Francis Ryan (I),FRANCIS XAVIER RYAN (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,102,No candidate,,Russell Diamond (I),RUSSELL H DIAMOND (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,103,Patty Kim (I),PATTY H KIM (STH),Anthony Harrell,,TRUE,TRUE,FALSE,1,0,1,1
+STH,104,Patricia Smith,,Susan Helm (I),SUSAN C SUE HELM (STH),TRUE,FALSE,TRUE,1,1,0,2
+STH,105,Eric Epstein,,Andrew Lewis,,TRUE,FALSE,FALSE,0,0,0,0
+STH,106,Jill Linta,,Thomas Mehaffie (I),THOMAS L MEHAFFIE (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,107,Sarah Donnelly,,Kurt Masser (I),KURT A MASSER (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,108,No candidate,,Lynda Schlegel Culver (I),LYNDA J SCHLEGEL CULVER (STH),FALSE,FALSE,TRUE,0,1,-1,1
+STH,109,Edward Sanders III,EDWARD THOMAS SANDERS (STH),David Millard (I),DAVID R MILLARD (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,110,Donna Iannone,,Tina Pickett (I),TINA L PICKETT (STH),TRUE,FALSE,TRUE,1,1,0,2
+STH,111,Rebecca Kinney,,Jonathan Fritz (I),JONATHAN A FRITZ (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,112,Kyle Mullins,,Ernest Lemoncelli,ERNEST D LEMONCELLI (STH),TRUE,FALSE,FALSE,0,0,0,0
+STH,113,Martin Flynn (I),MARTIN B FLYNN (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,114,Sid Michaels Kavulich (I),MICHAEL GEORGE KAVULICH (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,115,Maureen Madden (I),MAUREEN E MADDEN (STH),David Parker,DAVID C PARKER (STH),TRUE,TRUE,FALSE,1,0,1,1
+STH,116,No candidate,,Tarah Toohil (I),TARAH C TOOHIL (STH),FALSE,FALSE,TRUE,0,1,-1,1
+STH,117,No candidate,,Karen Boback (I),KAREN BOBACK (STH),FALSE,FALSE,TRUE,0,1,-1,1
+STH,118,Mike Carroll (I),MICHAEL B CARROLL (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,119,Gerald Mullery (I),GERALD J MULLERY (STH),Justin Behrens,JUSTIN VALERA BEHRENS (STH),TRUE,TRUE,FALSE,0,0,0,0
+STH,120,No candidate,,Aaron Kaufer (I),AARON D KAUFER (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,121,Eddie Day Pashinski (I),EDDIE DAY PASHINSKI (STH),Sue Henry,,TRUE,TRUE,FALSE,0,1,-1,1
+STH,122,Kara Scott,,Doyle Heffley (I),DOYLE M HEFFLEY (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,123,Neal Goodman (I),NEAL P GOODMAN (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,124,No candidate,,Jerry Knowles (I),JEROME P KNOWLES (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,125,No candidate,,Mike Tobash (I),MICHAEL G TOBASH (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,126,Mark Rozzi (I),MARK LUCIO ROZZI (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,127,Thomas Caltagirone (I),THOMAS R CALTAGIRONE (STH),Vincent Gagliardo Jr.,,TRUE,TRUE,FALSE,0,0,0,0
+STH,128,Douglas Metcalfe,,Mark Gillen (I),MARK M GILLEN (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,129,Tricia Wertz,,Jim Cox (I),JAMES A COX (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,130,No candidate,,David Maloney (I),DAVID M MALONEY (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,131,Andrew Lee,,Justin Simmons (I),JUSTIN J SIMMONS (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,132,Michael Schlossberg (I),MICHAEL H SCHLOSSBERG (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,133,Jeanne McNeill (I),,No candidate,,FALSE,TRUE,FALSE,1,0,1,1
+STH,134,Thomas Applebach,,Ryan Mackenzie (I),RYAN E MACKENZIE (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,135,Steve Samuelson (I),STEPHEN P SAMUELSON (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,136,Robert Freeman (I),ROBERT FREEMAN (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,137,Amy Cozze,,Joe Emrick (I),JOSEPH T EMRICK (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,138,Dean Donaher,,Marcia Hahn (I),MARCIA M HAHN (STH),TRUE,FALSE,TRUE,0,1,-1,1
+STH,139,Orlando Marrero,,Michael Peifer (I),MICHAEL T PEIFER (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,140,John Galloway (I),JOHN T GALLOWAY (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,141,Tina Davis (I),TINA MARIE DAVIS (STH),Anthony Sposato,,TRUE,TRUE,FALSE,1,0,1,1
+STH,142,Lauren Lareau,,Frank Farry (I),FRANK ANTHONY FARRY (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,143,Wendy Ullman,,Joseph Flood,,TRUE,FALSE,FALSE,1,0,1,1
+STH,144,Meredith Buck,,F. Todd Polinchock,,TRUE,FALSE,FALSE,1,0,1,1
+STH,145,Brian Kline,,Craig Staats (I),CRAIG T STAATS (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,146,Joseph Ciresi,JOSEPH P CIRESI (STH),Thomas Quigley (I),THOMAS J QUIGLEY (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,147,Joshua Camson,,Marcy Toepel (I),MARCY L TOEPEL (STH),TRUE,FALSE,TRUE,0,1,-1,1
+STH,148,Mary Jo Daley (I),MARY JOSEPHINE DALEY (STH),No candidate,,FALSE,TRUE,FALSE,1,0,1,1
+STH,149,Tim Briggs (I),TIMOTHY P BRIGGS (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,150,Joseph Webster,,Nick Fountain,,TRUE,FALSE,FALSE,0,0,0,0
+STH,151,Sara Johnson Rothman,,Todd Stephens (I),WILLIAM TODD STEPHENS (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,152,Daryl Boling,,Thomas Murt (I),THOMAS PAUL MURT (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,153,Ben Sanchez,,Douglas Beaver Jr.,,TRUE,FALSE,FALSE,0,0,0,0
+STH,154,Steve McCarter (I),STEPHEN C MCCARTER (STH),Kathleen Bowers,,TRUE,TRUE,FALSE,0,1,-1,1
+STH,155,Danielle Otten,,Becky Corbin (I),REBECCA P CORBIN (STH),TRUE,FALSE,TRUE,1,1,0,2
+STH,156,Carolyn Comitta (I),CAROLYN T COMITTA (STH),Nicholas Deminski,,TRUE,TRUE,FALSE,1,0,1,1
+STH,157,Melissa Shusterman,,Warren Kampf (I),WARREN E KAMPF (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,158,Christina Sappey,,Eric Roe (I),ERIC M ROE (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,159,Brian Kirkland (I),BRIAN JOSEPH KIRKLAND (STH),Ruth Moton,,TRUE,TRUE,FALSE,0,1,-1,1
+STH,160,Anton Andrew,,Stephen Barrar (I),STEPHEN E BARRAR (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,161,Leanne Krueger-Braneky (I),LEANNE T KRUEGERBRANEKY (STH),Patti Rodgers Morrisette,PATTI A RODGERS MORRISETTE (STH),TRUE,TRUE,FALSE,1,1,0,2
+STH,162,David Delloso,,Mary Hopper,,TRUE,FALSE,FALSE,0,1,-1,1
+STH,163,Michael Zabel,,Jamie Santora (I),JAMES SANTORA (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,164,Margo Davidson (I),MARGO L DAVIDSON (STH),Inderjit Bains,INDERJIT SINGH BAINS (STH),TRUE,TRUE,FALSE,1,0,1,1
+STH,165,Jennifer Omara,,Alexander Charlton (I),ALEXANDER TESLA CHARLTON (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,166,Gregory Vitali (I),GREGORY S VITALI (STH),Baltazar Rubio,,TRUE,TRUE,FALSE,0,0,0,0
+STH,167,Kristine Howard,,Duane Milne (I),DUANE D MILNE (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,168,Kristin Seale,,Christopher Quinn (I),CHRISTOPHER B QUINN (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,169,Sarah Hammond,,Kate Anne Klunk (I),KATE ANNE KLUNK (STH),TRUE,FALSE,TRUE,1,1,0,2
+STH,170,Michael Doyle Jr.,,Martina White (I),MARTINA A WHITE (STH),TRUE,FALSE,TRUE,0,1,-1,1
+STH,171,Erin McCracken,,Kerry Benninghoff (I),KERRY ALBERT BENNINGHOFF (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,172,Kevin Boyle (I),KEVIN J BOYLE (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,173,Michael Driscoll (I),MICHAEL JOSEPH DRISCOLL (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,174,Edward Neilson (I),ED J NEILSON (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,175,Mary Isaacson,,No candidate,,FALSE,FALSE,FALSE,1,0,1,1
+STH,176,Claudette Williams,,Jack Rader Jr. (I),JACK B RADER (STH),TRUE,FALSE,TRUE,1,0,1,1
+STH,177,Joseph Hohenstein,JOSEPH C HOHENSTEIN (STH),Patty Kozlowski,,TRUE,FALSE,FALSE,0,1,-1,1
+STH,178,Helen Tai (I),,Wendi Thomas,,TRUE,TRUE,FALSE,1,1,0,2
+STH,179,Jason Dawkins (I),JASON T DAWKINS (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,180,Angel Cruz (I),ANGEL L CRUZ (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,181,Malcolm Kenyatta,,Thomas Street,,TRUE,FALSE,FALSE,0,0,0,0
+STH,182,Brian Sims (I),BRIAN KENDALL SIMS (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,183,Jason Ruff,,Zachary Mako (I),ZACHARY A MAKO (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,184,Elizabeth Fiedler,,No candidate,,FALSE,FALSE,FALSE,1,0,1,1
+STH,185,Maria Donatucci (I),MARIA P DONATUCCI (STH),No candidate,,FALSE,TRUE,FALSE,1,0,1,1
+STH,186,Jordan Harris (I),JORDAN A HARRIS (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,187,Michael Blichar Jr.,,Gary Day (I),GARY W DAY (STH),TRUE,FALSE,TRUE,0,0,0,0
+STH,188,James Roebuck Jr. (I),JAMES R ROEBUCK (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,189,Adam Rodriguez,,Rosemary Brown (I),ROSEMARY MAULA BROWN (STH),TRUE,FALSE,TRUE,0,1,-1,1
+STH,190,Vanessa Lowery Brown (I),VANESSA L BROWN (STH),No candidate,,FALSE,TRUE,FALSE,1,0,1,1
+STH,191,Joanna McClinton (I),JOANNA E MCCLINTON (STH),No candidate,,FALSE,TRUE,FALSE,1,0,1,1
+STH,192,Morgan Cephas (I),MORGAN B CEPHAS (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,193,Matthew Nelson,,Torren Ecker,,TRUE,FALSE,FALSE,0,0,0,0
+STH,194,Pamela DeLissio (I),PAMELA A DELISSIO (STH),Sean Stevens,,TRUE,TRUE,FALSE,1,0,1,1
+STH,195,Donna Bullock (I),DONNA BULLOCK (STH),No candidate,,FALSE,TRUE,FALSE,1,0,1,1
+STH,196,No candidate,,Seth Grove (I),SETH M GROVE (STH),FALSE,FALSE,TRUE,0,0,0,0
+STH,197,Danilo Burgos,,No candidate,,FALSE,FALSE,FALSE,0,0,0,0
+STH,198,Rosita Youngblood (I),ROSITA C YOUNGBLOOD (STH),No candidate,,FALSE,TRUE,FALSE,1,0,1,1
+STH,199,Joseph McGinnis Jr.,,Barbara Gleim,,TRUE,FALSE,FALSE,0,1,-1,1
+STH,200,Christopher Rabb (I),CHRISTOPHER M RABB (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,201,Stephen Kinsey (I),STEPHEN KINSEY (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,202,Jared Solomon (I),JARED G SOLOMON (STH),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STH,203,Isabella Fitzgerald (I),ISABELLA FITZGERALD (STH),No candidate,,FALSE,TRUE,FALSE,1,0,1,1
+STS,2,Christine Tartaglione (I),CHRISTINE M TARTAGLIONE (STS),No candidate,,FALSE,TRUE,FALSE,1,0,1,1
+STS,4,Art Haywood (I),ARTHUR L HAYWOOD (STS),Ron Holt,,TRUE,TRUE,FALSE,0,0,0,0
+STS,6,Tina Davis,,Robert Tomlinson (I),ROBERT TOMMY TOMLINSON (STS),TRUE,FALSE,TRUE,1,0,1,1
+STS,8,Anthony Williams (I),ANTHONY HARDY WILLIAMS (STS),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STS,10,Steve Santarsiero,,Marguerite Quinn,,TRUE,FALSE,FALSE,0,1,-1,1
+STS,12,Maria Collett,,Stewart Greenleaf Jr.,STEWART J GREENLEAF (STS),TRUE,FALSE,FALSE,1,0,1,1
+STS,14,John Yudichak (I),JOHN T YUDICHAK (STS),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STS,16,Mark Pinsley,,Pat Browne (I),PATRICK M BROWNE (STS),TRUE,FALSE,TRUE,0,0,0,0
+STS,18,Lisa Boscola (I),,No candidate,,FALSE,TRUE,FALSE,1,0,1,1
+STS,20,No candidate,,Lisa Baker (I),ELISABETH J BAKER (STS),FALSE,FALSE,TRUE,0,1,-1,1
+STS,22,John Blake (I),JOHN PATRICK BLAKE (STS),Frank Scavo III,,TRUE,TRUE,FALSE,0,0,0,0
+STS,24,Linda Fields,,Bob Mensch (I),ROBERT BRUCE MENSCH (STS),TRUE,FALSE,TRUE,1,0,1,1
+STS,26,Timothy Kearney,,Thomas McGarrigle (I),THOMAS J MCGARRIGLE (STS),TRUE,FALSE,TRUE,0,0,0,0
+STS,28,Judith McCormick Higgins,,Kristin Hill,,TRUE,FALSE,FALSE,1,1,0,2
+STS,30,Emily Garbuny Best,,Judith Ward,,TRUE,FALSE,FALSE,1,1,0,2
+STS,32,Pamela Gerard,,Patrick Stefano (I),PATRICK J STEFANO (STS),TRUE,FALSE,TRUE,1,0,1,1
+STS,34,Ezra Nanes,,Jake Corman (I),JACOB D CORMAN (STS),TRUE,FALSE,TRUE,0,0,0,0
+STS,36,William Troutman Jr.,,Ryan Aument (I),RYAN P AUMENT (STS),TRUE,FALSE,TRUE,0,0,0,0
+STS,38,Lindsey Williams,,Jeremy Shaffer,,TRUE,FALSE,FALSE,1,0,1,1
+STS,40,Tarah Probst,,Mario Scavello (I),MARIO M SCAVELLO (STS),TRUE,FALSE,TRUE,1,0,1,1
+STS,42,Wayne Fontana (I),WAYNE D FONTANA (STS),No candidate,,FALSE,TRUE,FALSE,0,0,0,0
+STS,44,Katie Muth,,John Rafferty (I),JOHN C RAFFERTY (STS),TRUE,FALSE,TRUE,1,0,1,1
+STS,46,James Craig,,Camera Bartolotta (I),CAMERA C BARTOLOTTA (STS),TRUE,FALSE,TRUE,0,1,-1,1
+STS,48,Lois Herr,,Mike Folmer (I),MICHAEL J FOLMER (STS),TRUE,FALSE,TRUE,1,0,1,1
+STS,50,Sue Mulvey,,Michele Brooks (I),MICHELE BROOKS (STS),TRUE,FALSE,TRUE,1,1,0,2
+USC,1,Scott Wallace,,Brian Fitzpatrick (I),BRIAN K FITZPATRICK (USC),TRUE,FALSE,TRUE,0,0,0,0
+USC,2,Brendan Boyle (I),BRENDAN F BOYLE (USC),David Torres,,TRUE,TRUE,FALSE,0,0,0,0
+USC,3,Dwight Evans (I),DWIGHT EVANS (USC),Bryan Leib,,TRUE,TRUE,FALSE,0,0,0,0
+USC,4,Madeleine Dean,,Dan David,,TRUE,FALSE,FALSE,1,0,1,1
+USC,5,Mary Gay Scanlon,,Pearl Kim,,TRUE,FALSE,FALSE,1,1,0,2
+USC,6,Chrissy Houlahan,,Greg McCauley,,TRUE,FALSE,FALSE,1,0,1,1
+USC,7,Susan Wild,,Marty Nothstein,,TRUE,FALSE,FALSE,1,0,1,1
+USC,8,Matt Cartwright (I),MATTHEW ALTON CARTWRIGHT (USC),John Chrin,,TRUE,TRUE,FALSE,0,0,0,0
+USC,9,Danny Wolff,,Dan Meuser,,TRUE,FALSE,FALSE,0,0,0,0
+USC,10,George Scott,,Scott Perry (I),SCOTT PERRY (USC),TRUE,FALSE,TRUE,0,0,0,0
+USC,11,Jessica King,,Llyod Smucker (I),LLOYD K SMUCKER (USC),TRUE,FALSE,TRUE,1,0,1,1
+USC,12,Marc Friedenberg,,Tom Marina (I),THOMAS ANTHONY MARINO (USC),TRUE,FALSE,TRUE,0,0,0,0
+USC,13,Brent Ottaway,,John Joyce,,TRUE,FALSE,FALSE,0,0,0,0
+USC,14,Bibiana Boerio,,Guy Reschenthaler,,TRUE,FALSE,FALSE,1,0,1,1
+USC,15,Susan Boser,,Glenn Thompson (I),GLENN WILLIAM THOMPSON (USC),TRUE,FALSE,TRUE,1,0,1,1
+USC,16,Ronald DiNicola,,Mike Kelly (I),,TRUE,FALSE,TRUE,0,0,0,0
+USC,17,Conor Lamb,,Keith Rothfus,KEITH JAMES ROTHFUS (USC),TRUE,FALSE,FALSE,0,0,0,0
+USC,18,Michael Doyle,MICHAEL F DOYLE (USC),No candidate,,FALSE,FALSE,FALSE,0,0,0,0
+USS,PA,Bob Casey,BOB CASEY,Lou Barletta,LOU BARLETTA,TRUE,TRUE,FALSE,0,0,0,0
+GOV,PA,Thomas W Wolf,THOMAS W WOLF,Scott Wagner,SCOTT WAGNER,TRUE,TRUE,FALSE,0,0,0,0
