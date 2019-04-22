@@ -1,5 +1,5 @@
 # Election Analytics Workshop
-April 22, 2019
+### April 22, 2019
 
 In 2016, 200 million people visited election aggregator and forecasting websites. Despite the proliferation of data, election forecasting remains a challenge, one that is exacerbated by gerrymandering and unrepresentative districts.
 
